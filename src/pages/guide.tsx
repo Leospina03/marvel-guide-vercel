@@ -20,7 +20,7 @@ export default function Guide() {
   const [onlyEssentials, setOnlyEssentials] = useState(false);
   const [watchFilter, setWatchFilter] = useState<WatchFilter>("tutti");
   const [searchQuery, setSearchQuery] = useState("");
-  const [, setWatchedRefresh] = useState(0);
+  const [watchedRefresh, setWatchedRefresh] = useState(0);
 
   React.useEffect(() => {
     const refreshWatched = () => setWatchedRefresh((v) => v + 1);
@@ -46,12 +46,17 @@ export default function Guide() {
     }
 
     if (typeFilter === "film") result = result.filter((t) => t.tipo === "film");
-    if (typeFilter === "serie")
+    if (typeFilter === "serie") {
       result = result.filter((t) => t.tipo === "serie" || t.tipo === "film TV");
+    }
 
-    if (phaseFilter !== "tutte") result = result.filter((t) => t.fase === phaseFilter);
+    if (phaseFilter !== "tutte") {
+      result = result.filter((t) => t.fase === phaseFilter);
+    }
 
-    if (onlyEssentials) result = result.filter((t) => t.essenziale);
+    if (onlyEssentials) {
+      result = result.filter((t) => t.essenziale);
+    }
 
     if (watchFilter === "da-vedere") {
       result = result.filter((t) => {
@@ -79,7 +84,16 @@ export default function Guide() {
     });
 
     return result;
-  }, [titles, sortOrder, typeFilter, phaseFilter, onlyEssentials, watchFilter, searchQuery]);
+  }, [
+    titles,
+    sortOrder,
+    typeFilter,
+    phaseFilter,
+    onlyEssentials,
+    watchFilter,
+    searchQuery,
+    watchedRefresh,
+  ]);
 
   const watchedStats = useMemo(() => {
     if (!titles) {
@@ -102,7 +116,8 @@ export default function Guide() {
     }
 
     const totalCount = titles.length;
-    const percent = totalCount > 0 ? Math.round((watchedCount / totalCount) * 100) : 0;
+    const percent =
+      totalCount > 0 ? Math.round((watchedCount / totalCount) * 100) : 0;
     const isComplete = totalCount > 0 && watchedCount === totalCount;
 
     return {
@@ -111,14 +126,18 @@ export default function Guide() {
       percent,
       isComplete,
     };
-  }, [titles, filteredAndSorted]);
+  }, [titles, watchedRefresh]);
 
   if (error) {
     return (
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center p-8 glass-panel rounded-xl">
-          <p className="text-destructive font-bold text-xl mb-2">Errore di caricamento</p>
-          <p className="text-white/60 font-sans">Impossibile caricare il database MCU.</p>
+          <p className="text-destructive font-bold text-xl mb-2">
+            Errore di caricamento
+          </p>
+          <p className="text-white/60 font-sans">
+            Impossibile caricare il database MCU.
+          </p>
         </div>
       </div>
     );
@@ -132,14 +151,15 @@ export default function Guide() {
         </h1>
 
         <p className="font-sans text-white/60 max-w-3xl mx-auto">
-          Sfoglia l'intero Marvel Cinematic Universe. Usa i filtri per trovare esattamente cosa guardare.
+          Sfoglia l'intero Marvel Cinematic Universe. Usa i filtri per trovare
+          esattamente cosa guardare.
         </p>
 
         <div className="mt-6 max-w-3xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
             <div className="flex-1 h-[10px] rounded-full bg-white/5 overflow-hidden border border-white/5">
               <div
-                className={`h-full rounded-full transition-all duration-500 ${
+                className={`h-full rounded-full transition-all duration-300 ${
                   watchedStats.isComplete
                     ? "bg-[#ffd700] shadow-[0_0_14px_rgba(255,215,0,0.55)]"
                     : "bg-cyan-300 shadow-[0_0_14px_rgba(34,211,238,0.45)]"
@@ -163,7 +183,10 @@ export default function Guide() {
 
       <div className="glass-panel p-4 sm:p-6 rounded-2xl mb-8 flex flex-col lg:flex-row gap-4 lg:items-center justify-between sticky top-20 z-40">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
+          <Search
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"
+            size={18}
+          />
           <input
             type="text"
             placeholder="Cerca titolo..."
@@ -243,7 +266,11 @@ export default function Guide() {
           <select
             value={phaseFilter}
             onChange={(e) =>
-              setPhaseFilter(e.target.value === "tutte" ? "tutte" : (Number(e.target.value) as PhaseFilter))
+              setPhaseFilter(
+                e.target.value === "tutte"
+                  ? "tutte"
+                  : (Number(e.target.value) as PhaseFilter)
+              )
             }
             className="bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary/50 font-sans"
           >
@@ -273,7 +300,9 @@ export default function Guide() {
       {isLoading ? (
         <div className="w-full flex-1 flex flex-col items-center justify-center py-20">
           <Loader2 className="animate-spin text-primary mb-4" size={48} />
-          <p className="font-display text-white/50 tracking-widest animate-pulse">CARICAMENTO DATABASE...</p>
+          <p className="font-display text-white/50 tracking-widest animate-pulse">
+            CARICAMENTO DATABASE...
+          </p>
         </div>
       ) : (
         <>
@@ -282,7 +311,9 @@ export default function Guide() {
             <span className="hidden sm:block">
               Ordinati per:{" "}
               <strong className="text-white/80">
-                {sortOrder === "cronologico" ? "Ordine di Storia" : "Data di Uscita"}
+                {sortOrder === "cronologico"
+                  ? "Ordine di Storia"
+                  : "Data di Uscita"}
               </strong>
             </span>
           </div>
@@ -290,9 +321,12 @@ export default function Guide() {
           {filteredAndSorted.length === 0 ? (
             <div className="flex-1 flex flex-col items-center justify-center py-20 text-center glass-panel rounded-2xl">
               <LayoutGrid className="text-white/20 mb-4" size={64} />
-              <h3 className="font-display text-2xl text-white mb-2">Nessun titolo trovato</h3>
+              <h3 className="font-display text-2xl text-white mb-2">
+                Nessun titolo trovato
+              </h3>
               <p className="font-sans text-white/50 max-w-md">
-                Prova a modificare i filtri o la ricerca per trovare quello che cerchi.
+                Prova a modificare i filtri o la ricerca per trovare quello che
+                cerchi.
               </p>
               <Button
                 variant="outline"
@@ -312,7 +346,12 @@ export default function Guide() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20">
               <AnimatePresence>
                 {filteredAndSorted.map((item, index) => (
-                  <MCUCard key={item.id} item={item} ordineType={sortOrder} index={index} />
+                  <MCUCard
+                    key={item.id}
+                    item={item}
+                    ordineType={sortOrder}
+                    index={index}
+                  />
                 ))}
               </AnimatePresence>
             </div>
