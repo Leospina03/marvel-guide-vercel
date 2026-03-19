@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { MCUItem } from "../data/mcu";
 import { Badge } from "./ui/badge";
-import { Star, Tv, Clapperboard, Calendar, Check } from "lucide-react";
+import { Star, Tv, Clapperboard, Calendar } from "lucide-react";
 
 interface MCUCardProps {
   item: MCUItem;
@@ -19,6 +19,26 @@ const PHASE_COLORS: Record<number, string> = {
   5: "from-emerald-900 via-slate-800 to-black",
   6: "from-orange-900 via-slate-800 to-black",
 };
+
+function MjolnirIcon({ active }: { active: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 120 120"
+      className={`w-28 h-28 transition-all duration-300 ${
+        active ? "text-cyan-300 drop-shadow-[0_0_12px_rgba(34,211,238,0.55)]" : "text-white"
+      }`}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g opacity={active ? 0.22 : 0.1}>
+        <rect x="34" y="22" width="38" height="28" rx="4" fill="currentColor" />
+        <rect x="68" y="26" width="12" height="20" rx="2" fill="currentColor" />
+        <rect x="49" y="50" width="8" height="34" rx="3" fill="currentColor" />
+        <rect x="46" y="82" width="14" height="8" rx="3" fill="currentColor" />
+      </g>
+    </svg>
+  );
+}
 
 export function MCUCard({ item, ordineType, index }: MCUCardProps) {
   const numberToDisplay =
@@ -48,8 +68,26 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        boxShadow: isWatched
+          ? [
+              "0 0 0 rgba(34,211,238,0)",
+              "0 0 14px rgba(34,211,238,0.18)",
+              "0 0 0 rgba(34,211,238,0)",
+            ]
+          : "none",
+      }}
+      transition={{
+        duration: 0.4,
+        delay: index * 0.05,
+        boxShadow: {
+          duration: 1.8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+      }}
       whileHover={{ y: -5 }}
       className="h-full"
     >
@@ -57,7 +95,13 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
         href={`/titolo/${item.id}`}
         className="block h-full outline-none group cursor-pointer"
       >
-        <div className="h-full rounded-xl overflow-hidden flex flex-col relative border border-white/10 group-hover:border-primary/50 group-hover:shadow-[0_8px_30px_rgba(226,54,54,0.15)] transition-all duration-300">
+        <div
+          className={`h-full rounded-xl overflow-hidden flex flex-col relative transition-all duration-300 ${
+            isWatched
+              ? "border border-cyan-400/70"
+              : "border border-white/10 group-hover:border-primary/50"
+          } group-hover:shadow-[0_8px_30px_rgba(226,54,54,0.15)]`}
+        >
           {/* Sfondo gradiente per fase */}
           <div
             className={`absolute inset-0 bg-gradient-to-b ${bgGradient} ${
@@ -72,39 +116,39 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
             } transition-all duration-300`}
           />
 
-          {/* Timbro completato */}
-          {isWatched && (
-            <div className="absolute top-4 right-[-28px] z-20 rotate-12 pointer-events-none">
-              <div className="border-2 border-red-500/70 bg-red-600/15 px-8 py-1.5 shadow-[0_0_18px_rgba(220,38,38,0.25)]">
-                <span className="font-display text-xs tracking-[0.25em] text-red-400 uppercase">
-                  Completato
-                </span>
-              </div>
-            </div>
-          )}
+          {/* Mjolnir filigrana */}
+          <div className="absolute inset-0 z-0 flex flex-col items-center justify-center pointer-events-none">
+            <MjolnirIcon active={isWatched} />
+            {isWatched && (
+              <span className="mt-1 font-display text-[10px] tracking-[0.45em] text-cyan-300/55 uppercase">
+                Worthy
+              </span>
+            )}
+          </div>
 
           {/* Linea accent in cima */}
-          <div className="relative h-1 w-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:via-primary transition-colors duration-500" />
+          <div
+            className={`relative h-1 w-full bg-gradient-to-r from-transparent to-transparent transition-colors duration-500 ${
+              isWatched
+                ? "via-cyan-300/70"
+                : "via-white/20 group-hover:via-primary"
+            }`}
+          />
 
-          <div className="relative p-5 flex-1 flex flex-col">
+          <div className="relative p-5 flex-1 flex flex-col z-10">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-2">
-                {/* BOTTONE VISTO */}
                 <button
                   onClick={handleToggle}
                   title={isWatched ? "Rimuovi da visti" : "Segna come visto"}
                   className={[
                     "flex items-center justify-center rounded-lg w-10 h-10 border-2 font-bold transition-all duration-200 cursor-pointer select-none shrink-0",
                     isWatched
-                      ? "bg-green-500/30 border-green-400 text-green-300"
+                      ? "bg-black/35 border-cyan-400/70 text-white"
                       : "bg-black/40 border-white/30 text-white hover:bg-red-600/30 hover:border-red-400 hover:text-white",
                   ].join(" ")}
                 >
-                  {isWatched ? (
-                    <Check size={20} strokeWidth={3} />
-                  ) : (
-                    <span className="text-sm font-display">#{numberToDisplay}</span>
-                  )}
+                  <span className="text-sm font-display">#{numberToDisplay}</span>
                 </button>
 
                 {item.essenziale && (
@@ -121,7 +165,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
 
             <h3
               className={`font-display text-xl font-bold mb-1 group-hover:text-primary transition-colors line-clamp-2 leading-tight ${
-                isWatched ? "text-white/80" : "text-white"
+                isWatched ? "text-white/82" : "text-white"
               }`}
             >
               {item.titolo}
@@ -151,7 +195,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
 
             <p
               className={`font-sans text-sm line-clamp-3 leading-relaxed ${
-                isWatched ? "text-white/55" : "text-white/70"
+                isWatched ? "text-white/52" : "text-white/70"
               }`}
             >
               {item.descrizione}
@@ -159,14 +203,20 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
           </div>
 
           <div
-            className={`relative px-5 py-3 border-t border-white/10 flex items-center justify-between mt-auto group-hover:bg-primary/10 transition-colors ${
-              isWatched ? "bg-black/55" : "bg-black/40"
+            className={`relative px-5 py-3 border-t flex items-center justify-between mt-auto group-hover:bg-primary/10 transition-colors z-10 ${
+              isWatched
+                ? "border-cyan-400/20 bg-black/55"
+                : "border-white/10 bg-black/40"
             }`}
           >
             <span className="text-xs font-sans text-white/50 group-hover:text-white/80">
               Scopri di più
             </span>
-            <span className="text-primary font-bold group-hover:translate-x-1 transition-transform">
+            <span
+              className={`font-bold group-hover:translate-x-1 transition-transform ${
+                isWatched ? "text-cyan-300" : "text-primary"
+              }`}
+            >
               →
             </span>
           </div>
