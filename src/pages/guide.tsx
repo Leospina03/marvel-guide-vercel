@@ -9,6 +9,7 @@ import { Search, Loader2, ArrowDownAZ, LayoutGrid, Calendar, Star } from "lucide
 type SortType = "uscita" | "cronologico";
 type TypeFilter = "tutti" | "film" | "serie";
 type PhaseFilter = "tutte" | 1 | 2 | 3 | 4 | 5 | 6;
+type WatchFilter = "tutti" | "da-vedere" | "completati";
 
 export default function Guide() {
   const { data: titles, isLoading, error } = useMCUList();
@@ -17,31 +18,55 @@ export default function Guide() {
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("tutti");
   const [phaseFilter, setPhaseFilter] = useState<PhaseFilter>("tutte");
   const [onlyEssentials, setOnlyEssentials] = useState(false);
+  const [watchFilter, setWatchFilter] = useState<WatchFilter>("tutti");
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredAndSorted = useMemo(() => {
     if (!titles) return [];
-    
+
     let result = [...titles];
 
     // Search filter
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      result = result.filter(t => 
-        t.titolo.toLowerCase().includes(q) || 
-        t.titoloOriginale.toLowerCase().includes(q)
+      result = result.filter(
+        (t) =>
+          t.titolo.toLowerCase().includes(q) ||
+          t.titoloOriginale.toLowerCase().includes(q)
       );
     }
 
     // Type filter
-    if (typeFilter === "film") result = result.filter(t => t.tipo === "film");
-    if (typeFilter === "serie") result = result.filter(t => t.tipo === "serie" || t.tipo === "film TV");
+    if (typeFilter === "film") result = result.filter((t) => t.tipo === "film");
+    if (typeFilter === "serie")
+      result = result.filter((t) => t.tipo === "serie" || t.tipo === "film TV");
 
     // Phase filter
-    if (phaseFilter !== "tutte") result = result.filter(t => t.fase === phaseFilter);
+    if (phaseFilter !== "tutte") result = result.filter((t) => t.fase === phaseFilter);
 
     // Essential filter
-    if (onlyEssentials) result = result.filter(t => t.essenziale);
+    if (onlyEssentials) result = result.filter((t) => t.essenziale);
+
+    // Watch filter
+    if (watchFilter === "da-vedere") {
+      result = result.filter((t) => {
+        try {
+          return localStorage.getItem(`mcu-watched:${t.id}`) !== "1";
+        } catch {
+          return true;
+        }
+      });
+    }
+
+    if (watchFilter === "completati") {
+      result = result.filter((t) => {
+        try {
+          return localStorage.getItem(`mcu-watched:${t.id}`) === "1";
+        } catch {
+          return false;
+        }
+      });
+    }
 
     // Sorting
     result.sort((a, b) => {
@@ -50,7 +75,7 @@ export default function Guide() {
     });
 
     return result;
-  }, [titles, sortOrder, typeFilter, phaseFilter, onlyEssentials, searchQuery]);
+  }, [titles, sortOrder, typeFilter, phaseFilter, onlyEssentials, watchFilter, searchQuery]);
 
   if (error) {
     return (
@@ -65,7 +90,6 @@ export default function Guide() {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col">
-      
       <div className="mb-8 sm:mb-12">
         <h1 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">Tutti i Titoli</h1>
         <p className="font-sans text-white/60 max-w-3xl">
@@ -75,41 +99,81 @@ export default function Guide() {
 
       {/* Filter Bar */}
       <div className="glass-panel p-4 sm:p-6 rounded-2xl mb-8 flex flex-col lg:flex-row gap-4 lg:items-center justify-between sticky top-20 z-40">
-        
         {/* Search */}
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
-          <input 
-            type="text" 
+          <input
+            type="text"
             placeholder="Cerca titolo..."
             value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-black/40 border border-white/10 rounded-lg pl-10 pr-4 py-2 text-white placeholder:text-white/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all font-sans text-sm"
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          
+          {/* Watch Filter */}
+          <div className="flex bg-black/40 p-1 rounded-lg border border-white/10">
+            <button
+              onClick={() => setWatchFilter("tutti")}
+              className={`px-3 py-1.5 rounded-md text-xs font-display uppercase tracking-wider transition-colors ${
+                watchFilter === "tutti"
+                  ? "bg-white/20 text-white shadow-md"
+                  : "text-white/60 hover:text-white"
+              }`}
+            >
+              Tutti
+            </button>
+            <button
+              onClick={() => setWatchFilter("da-vedere")}
+              className={`px-3 py-1.5 rounded-md text-xs font-display uppercase tracking-wider transition-colors ${
+                watchFilter === "da-vedere"
+                  ? "bg-primary text-white shadow-md"
+                  : "text-white/60 hover:text-white"
+              }`}
+            >
+              Da Vedere
+            </button>
+            <button
+              onClick={() => setWatchFilter("completati")}
+              className={`px-3 py-1.5 rounded-md text-xs font-display uppercase tracking-wider transition-colors ${
+                watchFilter === "completati"
+                  ? "bg-green-600/80 text-white shadow-md"
+                  : "text-white/60 hover:text-white"
+              }`}
+            >
+              Completati
+            </button>
+          </div>
+
           {/* Order Toggle */}
           <div className="flex bg-black/40 p-1 rounded-lg border border-white/10">
             <button
               onClick={() => setSortOrder("cronologico")}
-              className={`px-3 py-1.5 rounded-md text-xs font-display uppercase tracking-wider flex items-center gap-2 transition-colors ${sortOrder === "cronologico" ? 'bg-primary text-white shadow-md' : 'text-white/60 hover:text-white'}`}
+              className={`px-3 py-1.5 rounded-md text-xs font-display uppercase tracking-wider flex items-center gap-2 transition-colors ${
+                sortOrder === "cronologico"
+                  ? "bg-primary text-white shadow-md"
+                  : "text-white/60 hover:text-white"
+              }`}
             >
               <ArrowDownAZ size={14} /> Storia
             </button>
             <button
               onClick={() => setSortOrder("uscita")}
-              className={`px-3 py-1.5 rounded-md text-xs font-display uppercase tracking-wider flex items-center gap-2 transition-colors ${sortOrder === "uscita" ? 'bg-white/20 text-white shadow-md' : 'text-white/60 hover:text-white'}`}
+              className={`px-3 py-1.5 rounded-md text-xs font-display uppercase tracking-wider flex items-center gap-2 transition-colors ${
+                sortOrder === "uscita"
+                  ? "bg-white/20 text-white shadow-md"
+                  : "text-white/60 hover:text-white"
+              }`}
             >
               <Calendar size={14} /> Uscita
             </button>
           </div>
 
           {/* Type Select */}
-          <select 
-            value={typeFilter} 
-            onChange={e => setTypeFilter(e.target.value as TypeFilter)}
+          <select
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value as TypeFilter)}
             className="bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary/50 font-sans"
           >
             <option value="tutti">Tutti i tipi</option>
@@ -118,9 +182,11 @@ export default function Guide() {
           </select>
 
           {/* Phase Select */}
-          <select 
-            value={phaseFilter} 
-            onChange={e => setPhaseFilter(e.target.value === "tutte" ? "tutte" : Number(e.target.value) as PhaseFilter)}
+          <select
+            value={phaseFilter}
+            onChange={(e) =>
+              setPhaseFilter(e.target.value === "tutte" ? "tutte" : (Number(e.target.value) as PhaseFilter))
+            }
             className="bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary/50 font-sans"
           >
             <option value="tutte">Tutte le fasi</option>
@@ -136,9 +202,9 @@ export default function Guide() {
           <button
             onClick={() => setOnlyEssentials(!onlyEssentials)}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm border transition-all ${
-              onlyEssentials 
-                ? 'bg-amber-500/20 border-amber-500/50 text-amber-400' 
-                : 'bg-black/40 border-white/10 text-white/60 hover:border-white/20'
+              onlyEssentials
+                ? "bg-amber-500/20 border-amber-500/50 text-amber-400"
+                : "bg-black/40 border-white/10 text-white/60 hover:border-white/20"
             }`}
           >
             <Star size={16} className={onlyEssentials ? "fill-amber-400" : ""} />
@@ -157,7 +223,12 @@ export default function Guide() {
         <>
           <div className="mb-4 text-white/40 text-sm font-sans flex items-center justify-between">
             <span>Trovati {filteredAndSorted.length} titoli</span>
-            <span className="hidden sm:block">Ordinati per: <strong className="text-white/80">{sortOrder === 'cronologico' ? 'Ordine di Storia' : 'Data di Uscita'}</strong></span>
+            <span className="hidden sm:block">
+              Ordinati per:{" "}
+              <strong className="text-white/80">
+                {sortOrder === "cronologico" ? "Ordine di Storia" : "Data di Uscita"}
+              </strong>
+            </span>
           </div>
 
           {filteredAndSorted.length === 0 ? (
@@ -167,9 +238,17 @@ export default function Guide() {
               <p className="font-sans text-white/50 max-w-md">
                 Prova a modificare i filtri o la ricerca per trovare quello che cerchi.
               </p>
-              <Button variant="outline" className="mt-6" onClick={() => {
-                setSearchQuery(""); setTypeFilter("tutti"); setPhaseFilter("tutte"); setOnlyEssentials(false);
-              }}>
+              <Button
+                variant="outline"
+                className="mt-6"
+                onClick={() => {
+                  setSearchQuery("");
+                  setTypeFilter("tutti");
+                  setPhaseFilter("tutte");
+                  setOnlyEssentials(false);
+                  setWatchFilter("tutti");
+                }}
+              >
                 Resetta Filtri
               </Button>
             </div>
@@ -177,12 +256,7 @@ export default function Guide() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20">
               <AnimatePresence>
                 {filteredAndSorted.map((item, index) => (
-                  <MCUCard 
-                    key={item.id} 
-                    item={item} 
-                    ordineType={sortOrder} 
-                    index={index} 
-                  />
+                  <MCUCard key={item.id} item={item} ordineType={sortOrder} index={index} />
                 ))}
               </AnimatePresence>
             </div>
