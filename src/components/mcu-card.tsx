@@ -52,18 +52,36 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
       transition={{ duration: 0.4, delay: index * 0.05 }}
       whileHover={{ y: -5 }}
       className="h-full"
-      style={isWatched ? { opacity: 0.6 } : undefined}
     >
       <Link
         href={`/titolo/${item.id}`}
         className="block h-full outline-none group cursor-pointer"
       >
         <div className="h-full rounded-xl overflow-hidden flex flex-col relative border border-white/10 group-hover:border-primary/50 group-hover:shadow-[0_8px_30px_rgba(226,54,54,0.15)] transition-all duration-300">
-
           {/* Sfondo gradiente per fase */}
-          <div className={`absolute inset-0 bg-gradient-to-b ${bgGradient} opacity-80`} />
+          <div
+            className={`absolute inset-0 bg-gradient-to-b ${bgGradient} ${
+              isWatched ? "opacity-55" : "opacity-80"
+            } transition-all duration-300`}
+          />
+
           {/* Velo nero per leggibilità testi */}
-          <div className="absolute inset-0 bg-black/60" />
+          <div
+            className={`absolute inset-0 ${
+              isWatched ? "bg-black/75" : "bg-black/60"
+            } transition-all duration-300`}
+          />
+
+          {/* Timbro completato */}
+          {isWatched && (
+            <div className="absolute top-4 right-[-28px] z-20 rotate-12 pointer-events-none">
+              <div className="border-2 border-red-500/70 bg-red-600/15 px-8 py-1.5 shadow-[0_0_18px_rgba(220,38,38,0.25)]">
+                <span className="font-display text-xs tracking-[0.25em] text-red-400 uppercase">
+                  Completato
+                </span>
+              </div>
+            </div>
+          )}
 
           {/* Linea accent in cima */}
           <div className="relative h-1 w-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:via-primary transition-colors duration-500" />
@@ -71,7 +89,6 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
           <div className="relative p-5 flex-1 flex flex-col">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-2">
-
                 {/* BOTTONE VISTO */}
                 <button
                   onClick={handleToggle}
@@ -102,10 +119,19 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
               <Badge variant="phase">Fase {item.fase}</Badge>
             </div>
 
-            <h3 className="font-display text-xl font-bold text-white mb-1 group-hover:text-primary transition-colors line-clamp-2 leading-tight">
+            <h3
+              className={`font-display text-xl font-bold mb-1 group-hover:text-primary transition-colors line-clamp-2 leading-tight ${
+                isWatched ? "text-white/80" : "text-white"
+              }`}
+            >
               {item.titolo}
             </h3>
-            <p className="font-sans text-xs text-white/50 mb-4 line-clamp-1 italic">
+
+            <p
+              className={`font-sans text-xs mb-4 line-clamp-1 italic ${
+                isWatched ? "text-white/35" : "text-white/50"
+              }`}
+            >
               {item.titoloOriginale}
             </p>
 
@@ -114,20 +140,35 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                 {item.tipo === "film" ? <Clapperboard size={12} /> : <Tv size={12} />}
                 {item.tipo}
               </Badge>
-              <Badge variant="outline" className="gap-1.5 flex items-center border-white/10 text-white/60">
+              <Badge
+                variant="outline"
+                className="gap-1.5 flex items-center border-white/10 text-white/60"
+              >
                 <Calendar size={12} />
                 {item.anno}
               </Badge>
             </div>
 
-            <p className="font-sans text-sm text-white/70 line-clamp-3 leading-relaxed">
+            <p
+              className={`font-sans text-sm line-clamp-3 leading-relaxed ${
+                isWatched ? "text-white/55" : "text-white/70"
+              }`}
+            >
               {item.descrizione}
             </p>
           </div>
 
-          <div className="relative px-5 py-3 border-t border-white/10 bg-black/40 flex items-center justify-between mt-auto group-hover:bg-primary/10 transition-colors">
-            <span className="text-xs font-sans text-white/50 group-hover:text-white/80">Scopri di più</span>
-            <span className="text-primary font-bold group-hover:translate-x-1 transition-transform">→</span>
+          <div
+            className={`relative px-5 py-3 border-t border-white/10 flex items-center justify-between mt-auto group-hover:bg-primary/10 transition-colors ${
+              isWatched ? "bg-black/55" : "bg-black/40"
+            }`}
+          >
+            <span className="text-xs font-sans text-white/50 group-hover:text-white/80">
+              Scopri di più
+            </span>
+            <span className="text-primary font-bold group-hover:translate-x-1 transition-transform">
+              →
+            </span>
           </div>
         </div>
       </Link>
