@@ -53,11 +53,15 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
   function handleToggle(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     e.stopPropagation();
+
     const next = !isWatched;
     setIsWatched(next);
+
     try {
       if (next) localStorage.setItem(`mcu-watched:${item.id}`, "1");
       else localStorage.removeItem(`mcu-watched:${item.id}`);
+
+      window.dispatchEvent(new CustomEvent("mcu-watched-updated"));
     } catch {}
   }
 
@@ -188,9 +192,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
             </div>
 
             <p
-              className={`font-sans text-sm line-clamp-3 leading-relaxed ${
-                isWatched ? "text-white/0" : "text-white/70"
-              }`}
+              className="font-sans text-sm line-clamp-3 leading-relaxed text-white/70"
               style={isWatched ? { opacity: 0 } : undefined}
             >
               {item.descrizione}

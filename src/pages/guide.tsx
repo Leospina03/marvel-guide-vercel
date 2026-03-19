@@ -20,13 +20,22 @@ export default function Guide() {
   const [onlyEssentials, setOnlyEssentials] = useState(false);
   const [watchFilter, setWatchFilter] = useState<WatchFilter>("tutti");
   const [searchQuery, setSearchQuery] = useState("");
+  const [, setWatchedRefresh] = useState(0);
+
+  React.useEffect(() => {
+    const refreshWatched = () => setWatchedRefresh((v) => v + 1);
+    window.addEventListener("mcu-watched-updated", refreshWatched);
+
+    return () => {
+      window.removeEventListener("mcu-watched-updated", refreshWatched);
+    };
+  }, []);
 
   const filteredAndSorted = useMemo(() => {
     if (!titles) return [];
 
     let result = [...titles];
 
-    // Search filter
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       result = result.filter(
@@ -36,18 +45,14 @@ export default function Guide() {
       );
     }
 
-    // Type filter
     if (typeFilter === "film") result = result.filter((t) => t.tipo === "film");
     if (typeFilter === "serie")
       result = result.filter((t) => t.tipo === "serie" || t.tipo === "film TV");
 
-    // Phase filter
     if (phaseFilter !== "tutte") result = result.filter((t) => t.fase === phaseFilter);
 
-    // Essential filter
     if (onlyEssentials) result = result.filter((t) => t.essenziale);
 
-    // Watch filter
     if (watchFilter === "da-vedere") {
       result = result.filter((t) => {
         try {
@@ -68,7 +73,6 @@ export default function Guide() {
       });
     }
 
-    // Sorting
     result.sort((a, b) => {
       if (sortOrder === "uscita") return a.ordineUscita - b.ordineUscita;
       return a.ordineCronologico - b.ordineCronologico;
@@ -76,6 +80,38 @@ export default function Guide() {
 
     return result;
   }, [titles, sortOrder, typeFilter, phaseFilter, onlyEssentials, watchFilter, searchQuery]);
+
+  const watchedStats = useMemo(() => {
+    if (!titles) {
+      return {
+        watchedCount: 0,
+        totalCount: 0,
+        percent: 0,
+        isComplete: false,
+      };
+    }
+
+    let watchedCount = 0;
+
+    for (const item of titles) {
+      try {
+        if (localStorage.getItem(`mcu-watched:${item.id}`) === "1") {
+          watchedCount++;
+        }
+      } catch {}
+    }
+
+    const totalCount = titles.length;
+    const percent = totalCount > 0 ? Math.round((watchedCount / totalCount) * 100) : 0;
+    const isComplete = totalCount > 0 && watchedCount === totalCount;
+
+    return {
+      watchedCount,
+      totalCount,
+      percent,
+      isComplete,
+    };
+  }, [titles, filteredAndSorted]);
 
   if (error) {
     return (
@@ -90,16 +126,42 @@ export default function Guide() {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col">
-      <div className="mb-8 sm:mb-12">
-        <h1 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">Tutti i Titoli</h1>
-        <p className="font-sans text-white/60 max-w-3xl">
+      <div className="mb-8 sm:mb-12 text-center">
+        <h1 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
+          Marvel Timeline
+        </h1>
+
+        <p className="font-sans text-white/60 max-w-3xl mx-auto">
           Sfoglia l'intero Marvel Cinematic Universe. Usa i filtri per trovare esattamente cosa guardare.
         </p>
+
+        <div className="mt-6 max-w-3xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+            <div className="flex-1 h-[10px] rounded-full bg-white/5 overflow-hidden border border-white/5">
+              <div
+                className={`h-full rounded-full transition-all duration-500 ${
+                  watchedStats.isComplete
+                    ? "bg-[#ffd700] shadow-[0_0_14px_rgba(255,215,0,0.55)]"
+                    : "bg-cyan-300 shadow-[0_0_14px_rgba(34,211,238,0.45)]"
+                }`}
+                style={{ width: `${watchedStats.percent}%` }}
+              />
+            </div>
+
+            <div
+              className={`text-[11px] sm:text-xs uppercase tracking-[0.28em] font-display whitespace-nowrap ${
+                watchedStats.isComplete
+                  ? "text-[#ffd700] drop-shadow-[0_0_8px_rgba(255,215,0,0.45)]"
+                  : "text-slate-300/80"
+              }`}
+            >
+              Film Visti: {watchedStats.watchedCount} / {watchedStats.totalCount}
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Filter Bar */}
       <div className="glass-panel p-4 sm:p-6 rounded-2xl mb-8 flex flex-col lg:flex-row gap-4 lg:items-center justify-between sticky top-20 z-40">
-        {/* Search */}
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
           <input
@@ -112,7 +174,6 @@ export default function Guide() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          {/* Watch Filter */}
           <div className="flex bg-black/40 p-1 rounded-lg border border-white/10">
             <button
               onClick={() => setWatchFilter("tutti")}
@@ -146,7 +207,6 @@ export default function Guide() {
             </button>
           </div>
 
-          {/* Order Toggle */}
           <div className="flex bg-black/40 p-1 rounded-lg border border-white/10">
             <button
               onClick={() => setSortOrder("cronologico")}
@@ -170,7 +230,6 @@ export default function Guide() {
             </button>
           </div>
 
-          {/* Type Select */}
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value as TypeFilter)}
@@ -181,7 +240,6 @@ export default function Guide() {
             <option value="serie">Solo Serie/TV</option>
           </select>
 
-          {/* Phase Select */}
           <select
             value={phaseFilter}
             onChange={(e) =>
@@ -198,7 +256,6 @@ export default function Guide() {
             <option value="6">Fase 6</option>
           </select>
 
-          {/* Essential Toggle */}
           <button
             onClick={() => setOnlyEssentials(!onlyEssentials)}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm border transition-all ${
@@ -213,7 +270,6 @@ export default function Guide() {
         </div>
       </div>
 
-      {/* Grid */}
       {isLoading ? (
         <div className="w-full flex-1 flex flex-col items-center justify-center py-20">
           <Loader2 className="animate-spin text-primary mb-4" size={48} />
