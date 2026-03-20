@@ -31,10 +31,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 1,
     essenziale: true,
     vedereFirst: [],
-    importanza: "Introduce Steve Rogers e il Tesseract. Fondamentale per capire HYDRA e le origini degli Avengers.",
-    descrizione: "Rifiutato dall'esercito a causa della sua gracile costituzione, Steve Rogers si sottopone a un esperimento top secret che lo trasforma nel supersoldato Captain America.",
+    importanza:
+      "Introduce Steve Rogers e il Tesseract. Fondamentale per capire HYDRA e le origini degli Avengers.",
+    descrizione:
+      "Rifiutato dall'esercito a causa della sua gracile costituzione, Steve Rogers si sottopone a un esperimento top secret che lo trasforma nel supersoldato Captain America.",
     durata: "2h 4m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "cap-marvel",
@@ -48,10 +50,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 2,
     essenziale: true,
     vedereFirst: [],
-    importanza: "Introduce Carol Danvers e spiega l'origine di S.H.I.E.L.D. e del cercapersone di Nick Fury.",
-    descrizione: "Ambientato negli anni '90, il film segue Carol Danvers mentre diventa una degli eroi più potenti dell'universo quando la Terra si ritrova nel mezzo di una guerra galattica.",
+    importanza:
+      "Introduce Carol Danvers e spiega l'origine di S.H.I.E.L.D. e del cercapersone di Nick Fury.",
+    descrizione:
+      "Ambientato negli anni '90, il film segue Carol Danvers mentre diventa una degli eroi più potenti dell'universo quando la Terra si ritrova nel mezzo di una guerra galattica.",
     durata: "2h 3m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "iron-man-1",
@@ -65,10 +69,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 3,
     essenziale: true,
     vedereFirst: [],
-    importanza: "Il film che ha lanciato il MCU. Tony Stark diventa Iron Man e getta le basi di tutto l'universo cinematografico Marvel.",
-    descrizione: "Il miliardario genio e inventore Tony Stark viene rapito e costretto a costruire un'arma devastante. Invece, usa la sua intelligenza per creare un'armatura high-tech e scappare.",
+    importanza:
+      "Il film che ha lanciato il MCU. Tony Stark diventa Iron Man e getta le basi di tutto l'universo cinematografico Marvel.",
+    descrizione:
+      "Il miliardario genio e inventore Tony Stark viene rapito e costretto a costruire un'arma devastante. Invece, usa la sua intelligenza per creare un'armatura high-tech e scappare.",
     durata: "2h 6m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "iron-man-2",
@@ -82,10 +88,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 4,
     essenziale: false,
     vedereFirst: ["Iron Man"],
-    importanza: "Introduce Natasha Romanoff/Black Widow e approfondisce il mondo di Stark e S.H.I.E.L.D.",
-    descrizione: "Con il mondo ora a conoscenza della sua doppia vita, Tony Stark affronta le pressioni del governo e una nuova letale minaccia dal suo passato.",
+    importanza:
+      "Introduce Natasha Romanoff/Black Widow e approfondisce il mondo di Stark e S.H.I.E.L.D.",
+    descrizione:
+      "Con il mondo ora a conoscenza della sua doppia vita, Tony Stark affronta le pressioni del governo e una nuova letale minaccia dal suo passato.",
     durata: "2h 4m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "hulk",
@@ -99,10 +107,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 5,
     essenziale: false,
     vedereFirst: [],
-    importanza: "Introduce Bruce Banner/Hulk. Meno connesso agli altri film, ma parte della Fase 1.",
-    descrizione: "Bruce Banner è in fuga, cercando una cura per la sua mutazione che lo trasforma in un mostro verde quando si arrabbia.",
+    importanza:
+      "Introduce Bruce Banner/Hulk. Meno connesso agli altri film, ma parte della Fase 1.",
+    descrizione:
+      "Bruce Banner è in fuga, cercando una cura per la sua mutazione che lo trasforma in un mostro verde quando si arrabbia.",
     durata: "1h 52m",
-    piattaforma: "Disney+"
+    piattaforma: "Acquisto/Noleggio",
   },
   {
     id: "thor-1",
@@ -116,10 +126,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 6,
     essenziale: true,
     vedereFirst: [],
-    importanza: "Introduce il regno di Asgard, Thor e Loki. Fondamentale per il lato cosmico del MCU.",
-    descrizione: "Il potente e arrogante dio Thor viene esiliato da Asgard e inviato sulla Terra per vivere tra gli umani, dove imparerà cosa serve per essere un vero eroe.",
+    importanza:
+      "Introduce il regno di Asgard, Thor e Loki. Fondamentale per il lato cosmico del MCU.",
+    descrizione:
+      "Il potente e arrogante dio Thor viene esiliato da Asgard e inviato sulla Terra per vivere tra gli umani, dove imparerà cosa serve per essere un vero eroe.",
     durata: "1h 55m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "avengers-1",
@@ -132,11 +144,17 @@ export const mcuData: MCUItem[] = [
     ordineUscita: 6,
     ordineCronologico: 7,
     essenziale: true,
-    vedereFirst: ["Iron Man", "Thor", "Captain America: Il Primo Vendicatore"],
-    importanza: "La prima grande unione degli eroi Marvel. Introduce Thanos e i Chitauri.",
-    descrizione: "Gli eroi più potenti della Terra devono riunirsi per imparare a combattere come una squadra e fermare il malvagio Loki e il suo esercito alieno.",
+    vedereFirst: [
+      "Iron Man",
+      "Thor",
+      "Captain America: Il Primo Vendicatore",
+    ],
+    importanza:
+      "La prima grande unione degli eroi Marvel. Introduce Thanos e i Chitauri.",
+    descrizione:
+      "Gli eroi più potenti della Terra devono riunirsi per imparare a combattere come una squadra e fermare il malvagio Loki e il suo esercito alieno.",
     durata: "2h 23m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "thor-2",
@@ -150,10 +168,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 8,
     essenziale: false,
     vedereFirst: ["Thor", "The Avengers"],
-    importanza: "Introduce l'Etere (Pietra della Realtà). Utile ma non fondamentale.",
-    descrizione: "Thor intraprende un viaggio pericoloso per fermare Malekith e gli Elfi Oscuri, che vogliono far sprofondare l'universo nell'oscurità.",
+    importanza:
+      "Introduce l'Etere (Pietra della Realtà). Utile ma non fondamentale.",
+    descrizione:
+      "Thor intraprende un viaggio pericoloso per fermare Malekith e gli Elfi Oscuri, che vogliono far sprofondare l'universo nell'oscurità.",
     durata: "1h 52m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "iron-man-3",
@@ -167,10 +187,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 9,
     essenziale: false,
     vedereFirst: ["The Avengers"],
-    importanza: "Approfondisce il PTSD di Tony Stark dopo gli eventi di New York.",
-    descrizione: "Quando il suo mondo viene distrutto da un formidabile terrorista chiamato il Mandarino, Tony Stark inizia un'odissea straziante.",
+    importanza:
+      "Approfondisce il PTSD di Tony Stark dopo gli eventi di New York.",
+    descrizione:
+      "Quando il suo mondo viene distrutto da un formidabile terrorista chiamato il Mandarino, Tony Stark inizia un'odissea straziante.",
     durata: "2h 10m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "cap-america-2",
@@ -184,10 +206,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 10,
     essenziale: true,
     vedereFirst: ["The Avengers", "Captain America: Il Primo Vendicatore"],
-    importanza: "Rivoluziona il MCU: svela la caduta di S.H.I.E.L.D. e HYDRA al suo interno.",
-    descrizione: "Mentre fatica ad adattarsi al mondo moderno, Steve Rogers si allea con la Vedova Nera e Falcon per sventare una cospirazione mortale.",
+    importanza:
+      "Rivoluziona il MCU: svela la caduta di S.H.I.E.L.D. e HYDRA al suo interno.",
+    descrizione:
+      "Mentre fatica ad adattarsi al mondo moderno, Steve Rogers si allea con la Vedova Nera e Falcon per sventare una cospirazione mortale.",
     durata: "2h 16m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "gotg-1",
@@ -201,10 +225,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 11,
     essenziale: true,
     vedereFirst: [],
-    importanza: "Apre il lato cosmico del MCU e introduce la Pietra del Potere.",
-    descrizione: "Un gruppo di criminali intergalattici deve unire le forze per fermare un guerriero fanatico che minaccia di distruggere l'universo.",
+    importanza:
+      "Apre il lato cosmico del MCU e introduce la Pietra del Potere.",
+    descrizione:
+      "Un gruppo di criminali intergalattici deve unire le forze per fermare un guerriero fanatico che minaccia di distruggere l'universo.",
     durata: "2h 1m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "gotg-2",
@@ -218,10 +244,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 12,
     essenziale: false,
     vedereFirst: ["Guardiani della Galassia"],
-    importanza: "Approfondisce il passato di Star-Lord e la famiglia dei Guardiani. Introduce Mantis.",
-    descrizione: "I Guardiani devono lottare per mantenere unita la loro famiglia appena trovata, mentre svelano il mistero della vera discendenza di Peter Quill.",
+    importanza:
+      "Approfondisce il passato di Star-Lord e la famiglia dei Guardiani. Introduce Mantis.",
+    descrizione:
+      "I Guardiani devono lottare per mantenere unita la loro famiglia appena trovata, mentre svelano il mistero della vera discendenza di Peter Quill.",
     durata: "2h 16m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "avengers-2",
@@ -235,10 +263,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 13,
     essenziale: true,
     vedereFirst: ["The Avengers", "Thor: Il Mondo Oscuro"],
-    importanza: "Introduce Visione, Wanda Maximoff e la Pietra della Mente. Getta le basi per Civil War.",
-    descrizione: "Quando Tony Stark cerca di avviare un programma di mantenimento della pace dormiente, le cose si complicano e gli Avengers devono fermare il malvagio Ultron.",
+    importanza:
+      "Introduce Visione, Wanda Maximoff e la Pietra della Mente. Getta le basi per Civil War.",
+    descrizione:
+      "Quando Tony Stark cerca di avviare un programma di mantenimento della pace dormiente, le cose si complicano e gli Avengers devono fermare il malvagio Ultron.",
     durata: "2h 21m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "ant-man-1",
@@ -252,10 +282,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 14,
     essenziale: false,
     vedereFirst: ["Avengers: Age of Ultron"],
-    importanza: "Introduce Scott Lang e il Regno Quantico, concetto fondamentale per Endgame.",
-    descrizione: "Dotato di una tuta che gli permette di rimpicciolirsi ma accrescere la sua forza, il ladro Scott Lang deve aiutare il suo mentore, il Dr. Hank Pym.",
+    importanza:
+      "Introduce Scott Lang e il Regno Quantico, concetto fondamentale per Endgame.",
+    descrizione:
+      "Dotato di una tuta che gli permette di rimpicciolirsi ma accrescere la sua forza, il ladro Scott Lang deve aiutare il suo mentore, il Dr. Hank Pym.",
     durata: "1h 57m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "cap-america-3",
@@ -268,11 +300,16 @@ export const mcuData: MCUItem[] = [
     ordineUscita: 13,
     ordineCronologico: 15,
     essenziale: true,
-    vedereFirst: ["Avengers: Age of Ultron", "Captain America: The Winter Soldier"],
-    importanza: "Divide gli Avengers. Introduce Black Panther e Spider-Man nel MCU.",
-    descrizione: "L'interferenza politica nelle attività degli Avengers causa una spaccatura tra gli ex alleati Captain America e Iron Man.",
+    vedereFirst: [
+      "Avengers: Age of Ultron",
+      "Captain America: The Winter Soldier",
+    ],
+    importanza:
+      "Divide gli Avengers. Introduce Black Panther e Spider-Man nel MCU.",
+    descrizione:
+      "L'interferenza politica nelle attività degli Avengers causa una spaccatura tra gli ex alleati Captain America e Iron Man.",
     durata: "2h 27m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "black-widow",
@@ -286,10 +323,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 16,
     essenziale: false,
     vedereFirst: ["Captain America: Civil War"],
-    importanza: "Esplora il passato di Natasha Romanoff e introduce Yelena Belova.",
-    descrizione: "Natasha Romanoff affronta i lati oscuri del suo passato quando emerge una cospirazione legata alla sua vita di ex spia.",
+    importanza:
+      "Esplora il passato di Natasha Romanoff e introduce Yelena Belova.",
+    descrizione:
+      "Natasha Romanoff affronta i lati oscuri del suo passato quando emerge una cospirazione legata alla sua vita di ex spia.",
     durata: "2h 14m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "black-panther",
@@ -303,10 +342,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 17,
     essenziale: false,
     vedereFirst: ["Captain America: Civil War"],
-    importanza: "Introduce Wakanda, T'Challa e il vibranio. Utile per Infinity War e Wakanda Forever.",
-    descrizione: "Dopo la morte di suo padre, T'Challa torna a Wakanda per prendere il posto che gli spetta di re, ma un potente nemico riappare.",
+    importanza:
+      "Introduce Wakanda, T'Challa e il vibranio. Utile per Infinity War e Wakanda Forever.",
+    descrizione:
+      "Dopo la morte di suo padre, T'Challa torna a Wakanda per prendere il posto che gli spetta di re, ma un potente nemico riappare.",
     durata: "2h 14m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "spider-man-homecoming",
@@ -320,10 +361,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 18,
     essenziale: false,
     vedereFirst: ["Captain America: Civil War"],
-    importanza: "Primo film MCU di Spider-Man. Mostra Peter Parker sotto la guida di Tony Stark.",
-    descrizione: "Peter Parker cerca di bilanciare la sua vita da studente liceale con quella di supereroe, affrontando l'Avvoltoio.",
+    importanza:
+      "Primo film MCU di Spider-Man. Mostra Peter Parker sotto la guida di Tony Stark.",
+    descrizione:
+      "Peter Parker cerca di bilanciare la sua vita da studente liceale con quella di supereroe, affrontando l'Avvoltoio.",
     durata: "2h 13m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "doctor-strange",
@@ -337,10 +380,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 19,
     essenziale: true,
     vedereFirst: [],
-    importanza: "Introduce la magia, il multiverso e la Gemma del Tempo.",
-    descrizione: "Il neurochirurgo Stephen Strange intraprende un viaggio di guarigione che lo porta nel mondo delle arti mistiche.",
+    importanza:
+      "Introduce la magia, il multiverso e la Gemma del Tempo.",
+    descrizione:
+      "Il neurochirurgo Stephen Strange intraprende un viaggio di guarigione che lo porta nel mondo delle arti mistiche.",
     durata: "1h 55m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "thor-3",
@@ -354,10 +399,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 20,
     essenziale: true,
     vedereFirst: ["Thor: Il Mondo Oscuro", "Avengers: Age of Ultron"],
-    importanza: "Distrugge Asgard e porta Thor direttamente a Infinity War.",
-    descrizione: "Thor è imprigionato dall'altra parte dell'universo e deve correre contro il tempo per fermare Ragnarok e salvare Asgard.",
+    importanza:
+      "Distrugge Asgard e porta Thor direttamente a Infinity War.",
+    descrizione:
+      "Thor è imprigionato dall'altra parte dell'universo e deve correre contro il tempo per fermare Ragnarok e salvare Asgard.",
     durata: "2h 10m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "ant-man-2",
@@ -371,10 +418,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 21,
     essenziale: false,
     vedereFirst: ["Captain America: Civil War", "Ant-Man"],
-    importanza: "Introduce pienamente il Regno Quantico. La scena post-credit è collegata a Infinity War.",
-    descrizione: "Mentre Scott Lang affronta le conseguenze delle sue scelte, si ritrova di nuovo coinvolto con Hope van Dyne e Hank Pym in una nuova missione.",
+    importanza:
+      "Introduce pienamente il Regno Quantico. La scena post-credit è collegata a Infinity War.",
+    descrizione:
+      "Mentre Scott Lang affronta le conseguenze delle sue scelte, si ritrova di nuovo coinvolto con Hope van Dyne e Hank Pym in una nuova missione.",
     durata: "1h 58m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "avengers-infinity-war",
@@ -387,11 +436,18 @@ export const mcuData: MCUItem[] = [
     ordineUscita: 19,
     ordineCronologico: 22,
     essenziale: true,
-    vedereFirst: ["The Avengers", "Guardiani della Galassia", "Thor: Ragnarok", "Doctor Strange"],
-    importanza: "Il culmine di dieci anni di MCU. Thanos raccoglie tutte le Gemme dell'Infinito.",
-    descrizione: "Gli Avengers e i loro alleati devono essere disposti a sacrificare tutto nel tentativo di sconfiggere il potente Thanos.",
+    vedereFirst: [
+      "The Avengers",
+      "Guardiani della Galassia",
+      "Thor: Ragnarok",
+      "Doctor Strange",
+    ],
+    importanza:
+      "Il culmine di dieci anni di MCU. Thanos raccoglie tutte le Gemme dell'Infinito.",
+    descrizione:
+      "Gli Avengers e i loro alleati devono essere disposti a sacrificare tutto nel tentativo di sconfiggere il potente Thanos.",
     durata: "2h 29m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "avengers-endgame",
@@ -405,10 +461,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 23,
     essenziale: true,
     vedereFirst: ["Avengers: Infinity War"],
-    importanza: "La grande conclusione della Saga dell'Infinito. Fondamentale per tutto ciò che segue.",
-    descrizione: "Dopo gli eventi devastanti di Infinity War, gli Avengers rimasti si riuniscono per annullare le azioni di Thanos.",
+    importanza:
+      "La grande conclusione della Saga dell'Infinito. Fondamentale per tutto ciò che segue.",
+    descrizione:
+      "Dopo gli eventi devastanti di Infinity War, gli Avengers rimasti si riuniscono per annullare le azioni di Thanos.",
     durata: "3h 1m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "loki",
@@ -422,10 +480,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 24,
     essenziale: true,
     vedereFirst: ["Avengers: Endgame", "Thor: Ragnarok"],
-    importanza: "Serie chiave per capire la TVA, Kang e l'intera Saga del Multiverso.",
-    descrizione: "Il Dio dell'Inganno Loki esce dall'ombra di suo fratello e intraprende un'avventura che si svolge dopo gli eventi di Avengers: Endgame.",
+    importanza:
+      "Serie chiave per capire la TVA, Kang e l'intera Saga del Multiverso.",
+    descrizione:
+      "Il Dio dell'Inganno Loki esce dall'ombra di suo fratello e intraprende un'avventura che si svolge dopo gli eventi di Avengers: Endgame.",
     durata: "12 episodi (2 stagioni)",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "wanda-vision",
@@ -439,10 +499,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 25,
     essenziale: true,
     vedereFirst: ["Avengers: Endgame"],
-    importanza: "Mostra il lutto di Wanda e la sua trasformazione in Scarlet Witch. Fondamentale per Doctor Strange 2.",
-    descrizione: "Wanda Maximoff e Visione vivono vite idealizzate in periferia, ma presto iniziano a sospettare che tutto non sia come sembra.",
+    importanza:
+      "Mostra il lutto di Wanda e la sua trasformazione in Scarlet Witch. Fondamentale per Doctor Strange 2.",
+    descrizione:
+      "Wanda Maximoff e Visione vivono vite idealizzate in periferia, ma presto iniziano a sospettare che tutto non sia come sembra.",
     durata: "9 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "shang-chi",
@@ -456,10 +518,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 26,
     essenziale: false,
     vedereFirst: [],
-    importanza: "Introduce Shang-Chi e i Dieci Anelli, con connessioni future ancora aperte.",
-    descrizione: "Shang-Chi deve affrontare il passato che credeva di essersi lasciato alle spalle quando viene attirato nella rete della misteriosa organizzazione dei Dieci Anelli.",
+    importanza:
+      "Introduce Shang-Chi e i Dieci Anelli, con connessioni future ancora aperte.",
+    descrizione:
+      "Shang-Chi deve affrontare il passato che credeva di essersi lasciato alle spalle quando viene attirato nella rete della misteriosa organizzazione dei Dieci Anelli.",
     durata: "2h 12m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "falcon-winter-soldier",
@@ -473,10 +537,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 27,
     essenziale: true,
     vedereFirst: ["Avengers: Endgame", "Captain America: Civil War"],
-    importanza: "Consolida Sam Wilson come nuovo Captain America e sviluppa Bucky.",
-    descrizione: "Sam Wilson e Bucky Barnes intraprendono un'avventura globale che mette alla prova le loro abilità e la loro pazienza.",
+    importanza:
+      "Consolida Sam Wilson come nuovo Captain America e sviluppa Bucky.",
+    descrizione:
+      "Sam Wilson e Bucky Barnes intraprendono un'avventura globale che mette alla prova le loro abilità e la loro pazienza.",
     durata: "6 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "spider-man-far-from-home",
@@ -490,10 +556,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 28,
     essenziale: false,
     vedereFirst: ["Avengers: Endgame", "Spider-Man: Homecoming"],
-    importanza: "Mostra le conseguenze di Endgame e prepara direttamente No Way Home.",
-    descrizione: "Peter Parker parte per una gita scolastica in Europa, ma Nick Fury lo recluta per affrontare una nuova minaccia.",
+    importanza:
+      "Mostra le conseguenze di Endgame e prepara direttamente No Way Home.",
+    descrizione:
+      "Peter Parker parte per una gita scolastica in Europa, ma Nick Fury lo recluta per affrontare una nuova minaccia.",
     durata: "2h 9m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "eternals",
@@ -507,10 +575,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 29,
     essenziale: false,
     vedereFirst: ["Avengers: Endgame"],
-    importanza: "Introduce i Celestiali e amplia enormemente la mitologia cosmica del MCU.",
-    descrizione: "Una razza immortale di eroi emerge dall'ombra per riunirsi contro il nemico più antico dell'umanità, i Devianti.",
+    importanza:
+      "Introduce i Celestiali e amplia enormemente la mitologia cosmica del MCU.",
+    descrizione:
+      "Una razza immortale di eroi emerge dall'ombra per riunirsi contro il nemico più antico dell'umanità, i Devianti.",
     durata: "2h 37m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "spider-man-no-way-home",
@@ -524,10 +594,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 30,
     essenziale: true,
     vedereFirst: ["Spider-Man: Far From Home", "Doctor Strange"],
-    importanza: "Evento cruciale del multiverso che porta personaggi da altri universi nel MCU.",
-    descrizione: "L'identità segreta di Spider-Man è stata rivelata; Peter chiede aiuto a Doctor Strange, ma l'incantesimo va storto.",
+    importanza:
+      "Evento cruciale del multiverso che porta personaggi da altri universi nel MCU.",
+    descrizione:
+      "L'identità segreta di Spider-Man è stata rivelata; Peter chiede aiuto a Doctor Strange, ma l'incantesimo va storto.",
     durata: "2h 28m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "doctor-strange-2",
@@ -541,10 +613,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 31,
     essenziale: true,
     vedereFirst: ["WandaVision", "Spider-Man: No Way Home", "Doctor Strange"],
-    importanza: "Esplora pienamente il multiverso e mostra la corruzione di Wanda come Scarlet Witch.",
-    descrizione: "Doctor Strange si allea con una misteriosa adolescente capace di attraversare i multiversi per affrontare una terrificante nuova minaccia.",
+    importanza:
+      "Esplora pienamente il multiverso e mostra la corruzione di Wanda come Scarlet Witch.",
+    descrizione:
+      "Doctor Strange si allea con una misteriosa adolescente capace di attraversare i multiversi per affrontare una terrificante nuova minaccia.",
     durata: "2h 6m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "hawkeye",
@@ -558,10 +632,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 32,
     essenziale: false,
     vedereFirst: ["Avengers: Endgame", "Black Widow"],
-    importanza: "Introduce Kate Bishop ed Echo. Ritorno di Kingpin nel MCU.",
-    descrizione: "L'ex Avenger Clint Barton ha una missione apparentemente semplice: tornare a casa per Natale. Ma il suo passato da Ronin torna a perseguitarlo.",
+    importanza:
+      "Introduce Kate Bishop ed Echo. Ritorno di Kingpin nel MCU.",
+    descrizione:
+      "L'ex Avenger Clint Barton ha una missione apparentemente semplice: tornare a casa per Natale. Ma il suo passato da Ronin torna a perseguitarlo.",
     durata: "6 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "moon-knight",
@@ -575,10 +651,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 33,
     essenziale: false,
     vedereFirst: [],
-    importanza: "Introduzione standalone di un nuovo eroe soprannaturale con forti elementi mitologici egizi.",
-    descrizione: "Steven Grant scopre di soffrire di blackout e di condividere il corpo con il mercenario Marc Spector.",
+    importanza:
+      "Introduzione standalone di un nuovo eroe soprannaturale con forti elementi mitologici egizi.",
+    descrizione:
+      "Steven Grant scopre di soffrire di blackout e di condividere il corpo con il mercenario Marc Spector.",
     durata: "6 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "black-panther-2",
@@ -592,10 +670,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 34,
     essenziale: false,
     vedereFirst: ["Black Panther", "Avengers: Endgame"],
-    importanza: "Mostra il Wakanda dopo T'Challa e introduce Namor e Riri Williams.",
-    descrizione: "Il Wakanda affronta potenze mondiali in cerca di vibranio mentre piange la perdita del suo re e deve fronteggiare Namor.",
+    importanza:
+      "Mostra il Wakanda dopo T'Challa e introduce Namor e Riri Williams.",
+    descrizione:
+      "Il Wakanda affronta potenze mondiali in cerca di vibranio mentre piange la perdita del suo re e deve fronteggiare Namor.",
     durata: "2h 41m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "echo",
@@ -609,10 +689,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 36,
     essenziale: false,
     vedereFirst: ["Hawkeye"],
-    importanza: "Maya Lopez esplora le sue radici Choctaw. Ritorno di Kingpin e Daredevil.",
-    descrizione: "Inseguita dall'impero criminale di Wilson Fisk, il viaggio di Maya Lopez la riporta a casa, dove deve affrontare la sua famiglia e il suo passato.",
+    importanza:
+      "Maya Lopez esplora le sue radici Choctaw. Ritorno di Kingpin e Daredevil.",
+    descrizione:
+      "Inseguita dall'impero criminale di Wilson Fisk, il viaggio di Maya Lopez la riporta a casa, dove deve affrontare la sua famiglia e il suo passato.",
     durata: "5 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "she-hulk",
@@ -626,10 +708,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 37,
     essenziale: false,
     vedereFirst: ["Avengers: Endgame", "L'Incredibile Hulk"],
-    importanza: "Jennifer Walters diventa She-Hulk. Ritorno di Daredevil e introduzione di Skaar.",
-    descrizione: "L'avvocata Jennifer Walters naviga nella complicata vita da trentenne single che si dà il caso sia anche una creatura verde superpotente alta due metri.",
+    importanza:
+      "Jennifer Walters diventa She-Hulk. Ritorno di Daredevil e introduzione di Skaar.",
+    descrizione:
+      "L'avvocata Jennifer Walters naviga nella complicata vita da trentenne single che si dà il caso sia anche una creatura verde superpotente alta due metri.",
     durata: "9 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "ms-marvel",
@@ -643,10 +727,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 38,
     essenziale: false,
     vedereFirst: [],
-    importanza: "Introduce Kamala Khan e accenna all'esistenza dei mutanti nel MCU.",
-    descrizione: "Kamala Khan, una super fan degli Avengers, fa fatica ad adattarsi a scuola finché non ottiene i suoi poteri cosmici.",
+    importanza:
+      "Introduce Kamala Khan e accenna all'esistenza dei mutanti nel MCU.",
+    descrizione:
+      "Kamala Khan, una super fan degli Avengers, fa fatica ad adattarsi a scuola finché non ottiene i suoi poteri cosmici.",
     durata: "6 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "thor-4",
@@ -660,10 +746,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 39,
     essenziale: false,
     vedereFirst: ["Thor: Ragnarok", "Avengers: Endgame"],
-    importanza: "Jane Foster ritorna come la Potente Thor. Introduce Eternità e nuove divinità cosmiche.",
-    descrizione: "Thor chiede l'aiuto di Valchiria, Korg e dell'ex fidanzata Jane Foster per combattere Gorr il Macellatore di Dei.",
+    importanza:
+      "Jane Foster ritorna come la Potente Thor. Introduce Eternità e nuove divinità cosmiche.",
+    descrizione:
+      "Thor chiede l'aiuto di Valchiria, Korg e dell'ex fidanzata Jane Foster per combattere Gorr il Macellatore di Dei.",
     durata: "1h 59m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "ironheart",
@@ -677,10 +765,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 40,
     essenziale: false,
     vedereFirst: ["Black Panther: Wakanda Forever"],
-    importanza: "Prosegue l'arco di Riri Williams dopo Wakanda Forever, unendo tecnologia avanzata e nuove minacce.",
-    descrizione: "Riri Williams torna a Chicago per costruire il proprio futuro, ma il suo genio tecnologico la porta a scontrarsi con forze impreviste.",
+    importanza:
+      "Prosegue l'arco di Riri Williams dopo Wakanda Forever, unendo tecnologia avanzata e nuove minacce.",
+    descrizione:
+      "Riri Williams torna a Chicago per costruire il proprio futuro, ma il suo genio tecnologico la porta a scontrarsi con forze impreviste.",
     durata: "6 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "werewolf",
@@ -694,10 +784,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 41,
     essenziale: false,
     vedereFirst: [],
-    importanza: "Esplora il lato horror e mostruoso del MCU. Introduce Elsa Bloodstone e Man-Thing.",
-    descrizione: "In una notte buia e cupa, un gruppo segreto di cacciatori di mostri emerge dall'ombra e si riunisce nel mistico Tempio di Bloodstone.",
+    importanza:
+      "Esplora il lato horror e mostruoso del MCU. Introduce Elsa Bloodstone e Man-Thing.",
+    descrizione:
+      "In una notte buia e cupa, un gruppo segreto di cacciatori di mostri emerge dall'ombra e si riunisce nel mistico Tempio di Bloodstone.",
     durata: "53m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "gotg-holiday-special",
@@ -710,11 +802,16 @@ export const mcuData: MCUItem[] = [
     ordineUscita: 40,
     ordineCronologico: 42,
     essenziale: false,
-    vedereFirst: ["Guardiani della Galassia Vol. 2", "Avengers: Endgame"],
-    importanza: "Fa da ponte verso Guardiani della Galassia Vol. 3 e chiarisce alcuni rapporti del gruppo.",
-    descrizione: "I Guardiani partono per una missione speciale sulla Terra per regalare a Peter Quill un Natale memorabile.",
+    vedereFirst: [
+      "Guardiani della Galassia Vol. 2",
+      "Avengers: Endgame",
+    ],
+    importanza:
+      "Fa da ponte verso Guardiani della Galassia Vol. 3 e chiarisce alcuni rapporti del gruppo.",
+    descrizione:
+      "I Guardiani partono per una missione speciale sulla Terra per regalare a Peter Quill un Natale memorabile.",
     durata: "44m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "ant-man-3",
@@ -728,10 +825,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 43,
     essenziale: true,
     vedereFirst: ["Ant-Man and the Wasp", "Loki", "Avengers: Endgame"],
-    importanza: "Esplora interamente il Regno Quantico e introduce formalmente Kang sul grande schermo.",
-    descrizione: "Scott Lang e Hope Van Dyne, insieme a Hank Pym e Janet Van Dyne, esplorano il Regno Quantico, dove affrontano Kang.",
+    importanza:
+      "Esplora interamente il Regno Quantico e introduce formalmente Kang sul grande schermo.",
+    descrizione:
+      "Scott Lang e Hope Van Dyne, insieme a Hank Pym e Janet Van Dyne, esplorano il Regno Quantico, dove affrontano Kang.",
     durata: "2h 5m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "gotg-3",
@@ -744,11 +843,17 @@ export const mcuData: MCUItem[] = [
     ordineUscita: 42,
     ordineCronologico: 44,
     essenziale: true,
-    vedereFirst: ["Guardiani della Galassia Vol. 2", "Avengers: Endgame", "The Guardians of the Galaxy Holiday Special"],
-    importanza: "Conclusione epica per la squadra originale dei Guardiani. Mostra l'oscuro passato di Rocket.",
-    descrizione: "Ancora sconvolto dalla perdita di Gamora, Peter Quill deve radunare la sua squadra per difendere l'universo e proteggere uno di loro.",
+    vedereFirst: [
+      "Guardiani della Galassia Vol. 2",
+      "Avengers: Endgame",
+      "The Guardians of the Galaxy Holiday Special",
+    ],
+    importanza:
+      "Conclusione epica per la squadra originale dei Guardiani. Mostra l'oscuro passato di Rocket.",
+    descrizione:
+      "Ancora sconvolto dalla perdita di Gamora, Peter Quill deve radunare la sua squadra per difendere l'universo e proteggere uno di loro.",
     durata: "2h 30m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "secret-invasion",
@@ -762,10 +867,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 45,
     essenziale: false,
     vedereFirst: ["Captain Marvel", "Avengers: Endgame"],
-    importanza: "Racconta l'infiltrazione degli Skrull sulla Terra e il ritorno in azione di Nick Fury.",
-    descrizione: "Nick Fury scopre un'infiltrazione clandestina sulla Terra da parte di una fazione di Skrull mutaforma e deve fermarli.",
+    importanza:
+      "Racconta l'infiltrazione degli Skrull sulla Terra e il ritorno in azione di Nick Fury.",
+    descrizione:
+      "Nick Fury scopre un'infiltrazione clandestina sulla Terra da parte di una fazione di Skrull mutaforma e deve fermarli.",
     durata: "6 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "the-marvels",
@@ -778,11 +885,18 @@ export const mcuData: MCUItem[] = [
     ordineUscita: 44,
     ordineCronologico: 46,
     essenziale: false,
-    vedereFirst: ["Captain Marvel", "Ms. Marvel", "WandaVision", "Secret Invasion"],
-    importanza: "Unisce Carol, Kamala e Monica. Espande il lato cosmico e le connessioni multiversali.",
-    descrizione: "Carol Danvers deve collaborare con Kamala Khan e Monica Rambeau quando i loro poteri si intrecciano in un'anomalia galattica.",
+    vedereFirst: [
+      "Captain Marvel",
+      "Ms. Marvel",
+      "WandaVision",
+      "Secret Invasion",
+    ],
+    importanza:
+      "Unisce Carol, Kamala e Monica. Espande il lato cosmico e le connessioni multiversali.",
+    descrizione:
+      "Carol Danvers deve collaborare con Kamala Khan e Monica Rambeau quando i loro poteri si intrecciano in un'anomalia galattica.",
     durata: "1h 45m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "agatha",
@@ -796,10 +910,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 47,
     essenziale: false,
     vedereFirst: ["WandaVision"],
-    importanza: "Esplora ulteriormente il lato magico del MCU e le conseguenze delle azioni di Wanda.",
-    descrizione: "Dopo gli eventi di Westview, un'Agatha senza poteri raduna un gruppo di reietti magici per percorrere la pericolosa Strada delle Streghe.",
+    importanza:
+      "Esplora ulteriormente il lato magico del MCU e le conseguenze delle azioni di Wanda.",
+    descrizione:
+      "Dopo gli eventi di Westview, un'Agatha senza poteri raduna un gruppo di reietti magici per percorrere la pericolosa Strada delle Streghe.",
     durata: "9 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "deadpool-wolverine",
@@ -813,27 +929,12 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 48,
     essenziale: true,
     vedereFirst: ["Loki", "Avengers: Endgame"],
-    importanza: "Fa collidere il mondo dei mutanti Fox con il MCU attraverso TVA e Multiverso.",
-    descrizione: "Wade Wilson si lascia alle spalle i suoi giorni da mercenario finché un nemico non lo costringe a collaborare con Wolverine.",
+    importanza:
+      "Fa collidere il mondo dei mutanti Fox con il MCU attraverso TVA e Multiverso.",
+    descrizione:
+      "Wade Wilson si lascia alle spalle i suoi giorni da mercenario finché un nemico non lo costringe a collaborare con Wolverine.",
     durata: "2h 7m",
-    piattaforma: "Cinema/VOD"
-  },
-  {
-    id: "daredevil-ba",
-    titolo: "Daredevil: Born Again",
-    titoloOriginale: "Daredevil: Born Again",
-    anno: 2025,
-    tipo: "serie",
-    fase: 5,
-    saga: "Saga del Multiverso",
-    ordineUscita: 49,
-    ordineCronologico: 49,
-    essenziale: false,
-    vedereFirst: ["Spider-Man: No Way Home", "Echo", "Hawkeye"],
-    importanza: "Il ritorno ufficiale in solitaria di Matt Murdock nel MCU.",
-    descrizione: "Matt Murdock continua la sua doppia vita da avvocato cieco e vigilante di Hell's Kitchen, mentre Wilson Fisk intraprende una campagna politica.",
-    durata: "9 episodi",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
   },
   {
     id: "cap-america-4",
@@ -847,10 +948,31 @@ export const mcuData: MCUItem[] = [
     ordineCronologico: 50,
     essenziale: true,
     vedereFirst: ["The Falcon and the Winter Soldier"],
-    importanza: "Consolida Sam Wilson come nuovo Captain America e apre nuovi sviluppi politici nel MCU.",
-    descrizione: "Sam Wilson, ormai nei panni di Captain America, si ritrova al centro di una crisi internazionale che minaccia l'equilibrio globale.",
+    importanza:
+      "Consolida Sam Wilson come nuovo Captain America e apre nuovi sviluppi politici nel MCU.",
+    descrizione:
+      "Sam Wilson, ormai nei panni di Captain America, si ritrova al centro di una crisi internazionale che minaccia l'equilibrio globale.",
     durata: "1h 58m",
-    piattaforma: "Disney+"
+    piattaforma: "Disney+",
+  },
+  {
+    id: "daredevil-ba",
+    titolo: "Daredevil: Born Again",
+    titoloOriginale: "Daredevil: Born Again",
+    anno: 2025,
+    tipo: "serie",
+    fase: 5,
+    saga: "Saga del Multiverso",
+    ordineUscita: 49,
+    ordineCronologico: 49,
+    essenziale: false,
+    vedereFirst: ["Spider-Man: No Way Home", "Echo", "Hawkeye"],
+    importanza:
+      "Il ritorno ufficiale in solitaria di Matt Murdock nel MCU.",
+    descrizione:
+      "Matt Murdock continua la sua doppia vita da avvocato cieco e vigilante di Hell's Kitchen, mentre Wilson Fisk intraprende una campagna politica.",
+    durata: "9 episodi",
+    piattaforma: "Disney+",
   },
   {
     id: "thunderbolts",
@@ -863,11 +985,17 @@ export const mcuData: MCUItem[] = [
     ordineUscita: 51,
     ordineCronologico: 51,
     essenziale: false,
-    vedereFirst: ["Black Widow", "The Falcon and the Winter Soldier", "Captain America: Brave New World"],
-    importanza: "Un team di antieroi assemblati da Valentina. Porta avanti diversi personaggi già introdotti nel MCU.",
-    descrizione: "Un gruppo di personaggi moralmente ambigui viene reclutato per intraprendere missioni governative top-secret.",
+    vedereFirst: [
+      "Black Widow",
+      "The Falcon and the Winter Soldier",
+      "Captain America: Brave New World",
+    ],
+    importanza:
+      "Un team di antieroi assemblati da Valentina. Porta avanti diversi personaggi già introdotti nel MCU.",
+    descrizione:
+      "Un gruppo di personaggi moralmente ambigui viene reclutato per intraprendere missioni governative top-secret.",
     durata: "TBC",
-    piattaforma: "Cinema"
+    piattaforma: "Disney+",
   },
   {
     id: "fantastic-four-first-steps",
@@ -880,10 +1008,16 @@ export const mcuData: MCUItem[] = [
     ordineUscita: 52,
     ordineCronologico: 52,
     essenziale: true,
-    vedereFirst: ["Doctor Strange nel Multiverso della Follia", "Loki", "Deadpool & Wolverine"],
-    importanza: "Introduce ufficialmente i Fantastici Quattro nel MCU e apre la Fase 6 con forti implicazioni multiversali.",
-    descrizione: "La Prima Famiglia Marvel deve bilanciare il proprio ruolo di eroi con i legami familiari mentre affronta Galactus e Silver Surfer in un mondo retro-futuristico ispirato agli anni '60.",
+    vedereFirst: [
+      "Doctor Strange nel Multiverso della Follia",
+      "Loki",
+      "Deadpool & Wolverine",
+    ],
+    importanza:
+      "Introduce ufficialmente i Fantastici Quattro nel MCU e apre la Fase 6 con forti implicazioni multiversali.",
+    descrizione:
+      "La Prima Famiglia Marvel deve bilanciare il proprio ruolo di eroi con i legami familiari mentre affronta Galactus e Silver Surfer in un mondo retro-futuristico ispirato agli anni '60.",
     durata: "1h 55m",
-    piattaforma: "Disney+"
-  }
+    piattaforma: "Disney+",
+  },
 ];
