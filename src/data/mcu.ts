@@ -868,5 +868,22 @@ export const mcuData: MCUItem[] = [
     descrizione: "Un gruppo di personaggi moralmente ambigui viene reclutato per intraprendere missioni governative top-secret.",
     durata: "TBC",
     piattaforma: "Cinema"
+  },
+  {
+    id: "fantastic-four-first-steps",
+    titolo: "The Fantastic Four: First Steps",
+    titoloOriginale: "The Fantastic Four: First Steps",
+    anno: 2025,
+    tipo: "film",
+    fase: 6,
+    saga: "Saga del Multiverso",
+    ordineUscita: 52,
+    ordineCronologico: 52,
+    essenziale: true,
+    vedereFirst: ["Doctor Strange nel Multiverso della Follia", "Loki", "Deadpool & Wolverine"],
+    importanza: "Introduce ufficialmente i Fantastici Quattro nel MCU e apre la Fase 6 con forti implicazioni multiversali.",
+    descrizione: "La Prima Famiglia Marvel deve bilanciare il proprio ruolo di eroi con i legami familiari mentre affronta Galactus e Silver Surfer in un mondo retro-futuristico ispirato agli anni '60.",
+    durata: "1h 55m",
+    piattaforma: "Disney+"
   }
 ];
