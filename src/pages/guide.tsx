@@ -145,7 +145,7 @@ export default function Guide() {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col">
-      <div className="mb-8 sm:mb-12 text-center">
+      <div className="sticky top-16 z-40 mb-8 sm:mb-12 text-center bg-[rgba(6,10,18,0.82)] backdrop-blur-xl border-b border-white/8 pb-6">
         <h1 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
           Marvel Timeline
         </h1>
@@ -181,7 +181,7 @@ export default function Guide() {
         </div>
       </div>
 
-      <div className="glass-panel p-4 sm:p-6 rounded-2xl mb-8 flex flex-col lg:flex-row gap-4 lg:items-center justify-between sticky top-20 z-40">
+      <div className="glass-panel p-4 sm:p-6 rounded-2xl mb-8 flex flex-col lg:flex-row gap-4 lg:items-center justify-between">
         <div className="relative flex-1 max-w-md">
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"
