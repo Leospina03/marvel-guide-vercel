@@ -156,7 +156,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                     "bg-black/35 backdrop-blur-[2px]",
                     isWatched
                       ? "border border-cyan-300 text-white shadow-[0_0_14px_rgba(34,211,238,0.45)] hover:scale-105 hover:brightness-110"
-                      : "border border-white/25 text-white/80 hover:scale-105 hover:border-cyan-200/70 hover:text-white hover:bg-black/45",
+                      : "border border-white/20 text-white/75 shadow-none hover:scale-105 hover:border-white/40 hover:text-white hover:bg-black/45",
                   ].join(" ")}
                 >
                   <span
@@ -164,7 +164,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                       "absolute inset-0 rounded-full transition-all duration-200",
                       isWatched
                         ? "bg-cyan-300/10 shadow-[inset_0_0_10px_rgba(34,211,238,0.25)]"
-                        : "bg-transparent",
+                        : "bg-transparent shadow-none",
                     ].join(" ")}
                   />
 
@@ -175,7 +175,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                       className="relative z-10 text-white drop-shadow-[0_0_8px_rgba(34,211,238,0.85)]"
                     />
                   ) : (
-                    <span className="relative z-10 block w-3.5 h-3.5 rounded-full border border-white/45" />
+                    <span className="relative z-10 block w-3.5 h-3.5 rounded-full border border-white/35" />
                   )}
                 </button>
 
