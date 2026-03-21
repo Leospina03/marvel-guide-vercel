@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { MCUItem } from "../data/mcu";
 import { Badge } from "./ui/badge";
-import { Star, Tv, Clapperboard, Calendar, Check } from "lucide-react";
+import { Star, Tv, Clapperboard, Calendar, Check, Plus } from "lucide-react";
 
 interface MCUCardProps {
   item: MCUItem;
@@ -156,10 +156,9 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                     "transition-all duration-200 ease-out",
                     "outline-none",
                     "focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-0",
-                    "bg-black/35 backdrop-blur-[2px]",
                     isWatched
-                      ? "border border-cyan-300 text-white shadow-[0_0_14px_rgba(34,211,238,0.45)] hover:scale-105 hover:brightness-110"
-                      : "border border-white/20 text-white/75 shadow-none hover:scale-105 hover:border-white/40 hover:text-white hover:bg-black/45",
+                      ? "bg-black/35 backdrop-blur-[2px] border border-cyan-300 text-white shadow-[0_0_14px_rgba(34,211,238,0.45)] hover:scale-105 hover:brightness-110"
+                      : "bg-slate-900/60 backdrop-blur-sm border border-slate-500 text-slate-300 shadow-none hover:scale-105 hover:bg-slate-800/70 hover:border-slate-400 hover:text-white",
                   ].join(" ")}
                 >
                   <span
@@ -178,7 +177,11 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                       className="relative z-10 text-white drop-shadow-[0_0_8px_rgba(34,211,238,0.85)]"
                     />
                   ) : (
-                    <span className="relative z-10 block w-3.5 h-3.5 rounded-full border border-white/35" />
+                    <Plus
+                      size={16}
+                      strokeWidth={2.5}
+                      className="relative z-10 text-slate-300 transition-colors duration-200"
+                    />
                   )}
                 </button>
 
