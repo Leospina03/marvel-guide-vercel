@@ -121,24 +121,17 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
           <div className="relative p-5 flex-1 flex flex-col z-10">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-2">
-                <button
-                  onClick={handleToggle}
-                  title={isWatched ? "Rimuovi da visti" : "Segna come visto"}
+                <div
                   className={[
-                    "relative flex items-center justify-center rounded-lg w-10 h-10 border-2 font-bold transition-all duration-200 cursor-pointer select-none shrink-0",
+                    "relative flex items-center justify-center rounded-lg min-w-10 h-10 px-2 border font-bold transition-all duration-200 shrink-0",
                     isWatched
-                      ? "bg-black/40 border-cyan-300/70 text-white"
-                      : "bg-black/40 border-white/30 text-white hover:bg-red-600/30 hover:border-red-400 hover:text-white",
+                      ? "bg-black/35 border-cyan-300/25 text-slate-200/90"
+                      : "bg-black/35 border-white/15 text-white/85",
                   ].join(" ")}
+                  aria-label={`Ordine ${numberToDisplay}`}
                 >
                   <span className="text-sm font-display">#{numberToDisplay}</span>
-
-                  {isWatched && (
-                    <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-green-500 border border-green-300 flex items-center justify-center shadow-[0_0_10px_rgba(34,197,94,0.45)]">
-                      <Check size={12} strokeWidth={3} className="text-white" />
-                    </span>
-                  )}
-                </button>
+                </div>
 
                 {item.essenziale && (
                   <div
@@ -150,7 +143,44 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                 )}
               </div>
 
-              <Badge variant="phase">Fase {item.fase}</Badge>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleToggle}
+                  title={isWatched ? "Segnato come visto" : "Segna come visto"}
+                  aria-label={isWatched ? "Segnato come visto" : "Segna come visto"}
+                  className={[
+                    "relative z-20 flex items-center justify-center rounded-full w-10 h-10 shrink-0",
+                    "transition-all duration-200 ease-out",
+                    "focus:outline-none focus:ring-2 focus:ring-cyan-300/70 focus:ring-offset-0",
+                    "bg-black/35 backdrop-blur-[2px]",
+                    isWatched
+                      ? "border border-cyan-300 text-white shadow-[0_0_14px_rgba(34,211,238,0.45)] hover:scale-105 hover:brightness-110"
+                      : "border border-white/25 text-white/80 hover:scale-105 hover:border-cyan-200/70 hover:text-white hover:bg-black/45",
+                  ].join(" ")}
+                >
+                  <span
+                    className={[
+                      "absolute inset-0 rounded-full transition-all duration-200",
+                      isWatched
+                        ? "bg-cyan-300/10 shadow-[inset_0_0_10px_rgba(34,211,238,0.25)]"
+                        : "bg-transparent",
+                    ].join(" ")}
+                  />
+
+                  {isWatched ? (
+                    <Check
+                      size={16}
+                      strokeWidth={3}
+                      className="relative z-10 text-white drop-shadow-[0_0_8px_rgba(34,211,238,0.85)]"
+                    />
+                  ) : (
+                    <span className="relative z-10 block w-3.5 h-3.5 rounded-full border border-white/45" />
+                  )}
+                </button>
+
+                <Badge variant="phase">Fase {item.fase}</Badge>
+              </div>
             </div>
 
             <h3
@@ -176,14 +206,20 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                   isWatched ? "border-white/5 text-white/12" : ""
                 }`}
               >
-                {item.tipo === "film" ? <Clapperboard size={12} /> : <Tv size={12} />}
+                {item.tipo === "film" ? (
+                  <Clapperboard size={12} />
+                ) : (
+                  <Tv size={12} />
+                )}
                 {item.tipo}
               </Badge>
 
               <Badge
                 variant="outline"
                 className={`gap-1.5 flex items-center ${
-                  isWatched ? "border-white/5 text-white/10" : "border-white/10 text-white/60"
+                  isWatched
+                    ? "border-white/5 text-white/10"
+                    : "border-white/10 text-white/60"
                 }`}
               >
                 <Calendar size={12} />
