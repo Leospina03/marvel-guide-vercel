@@ -145,7 +145,7 @@ export default function Guide() {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col">
-      <div className="mb-8 sm:mb-12 text-center">
+      <div className="text-center">
         <h1 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
           Marvel Timeline
         </h1>
@@ -154,32 +154,30 @@ export default function Guide() {
           Sfoglia l'intero Marvel Cinematic Universe. Usa i filtri per trovare
           esattamente cosa guardare.
         </p>
+      </div>
 
-        <div className="mt-6 max-w-3xl mx-auto">
-          <div className="sticky top-16 z-40">
-            <div className="bg-[rgba(6,10,18,0.82)] backdrop-blur-xl border border-white/8 rounded-2xl px-4 py-3 shadow-[0_8px_30px_rgba(0,0,0,0.25)]">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-                <div className="flex-1 h-[10px] rounded-full bg-white/5 overflow-hidden border border-white/5">
-                  <div
-                    className={`h-full rounded-full transition-all duration-300 ${
-                      watchedStats.isComplete
-                        ? "bg-[#ffd700] shadow-[0_0_14px_rgba(255,215,0,0.55)]"
-                        : "bg-cyan-300 shadow-[0_0_14px_rgba(34,211,238,0.45)]"
-                    }`}
-                    style={{ width: `${watchedStats.percent}%` }}
-                  />
-                </div>
+      <div className="mt-6 mb-8 sm:mb-10 max-w-3xl mx-auto w-full sticky top-16 z-40">
+        <div className="bg-[rgba(6,10,18,0.82)] backdrop-blur-xl border border-white/8 rounded-2xl px-4 py-3 shadow-[0_8px_30px_rgba(0,0,0,0.25)]">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+            <div className="flex-1 h-[10px] rounded-full bg-white/5 overflow-hidden border border-white/5">
+              <div
+                className={`h-full rounded-full transition-all duration-300 ${
+                  watchedStats.isComplete
+                    ? "bg-[#ffd700] shadow-[0_0_14px_rgba(255,215,0,0.55)]"
+                    : "bg-cyan-300 shadow-[0_0_14px_rgba(34,211,238,0.45)]"
+                }`}
+                style={{ width: `${watchedStats.percent}%` }}
+              />
+            </div>
 
-                <div
-                  className={`text-[11px] sm:text-xs uppercase tracking-[0.28em] font-display whitespace-nowrap ${
-                    watchedStats.isComplete
-                      ? "text-[#ffd700] drop-shadow-[0_0_8px_rgba(255,215,0,0.45)]"
-                      : "text-slate-300/80"
-                  }`}
-                >
-                  Titoli Visti: {watchedStats.watchedCount} / {watchedStats.totalCount}
-                </div>
-              </div>
+            <div
+              className={`text-[11px] sm:text-xs uppercase tracking-[0.28em] font-display whitespace-nowrap ${
+                watchedStats.isComplete
+                  ? "text-[#ffd700] drop-shadow-[0_0_8px_rgba(255,215,0,0.45)]"
+                  : "text-slate-300/80"
+              }`}
+            >
+              Titoli Visti: {watchedStats.watchedCount} / {watchedStats.totalCount}
             </div>
           </div>
         </div>
