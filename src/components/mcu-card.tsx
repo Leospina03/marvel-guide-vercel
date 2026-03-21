@@ -63,6 +63,8 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
 
       window.dispatchEvent(new CustomEvent("mcu-watched-updated"));
     } catch {}
+
+    e.currentTarget.blur();
   }
 
   const bgGradient = PHASE_COLORS[item.fase] ?? PHASE_COLORS[1];
@@ -152,7 +154,8 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                   className={[
                     "relative z-20 flex items-center justify-center rounded-full w-10 h-10 shrink-0",
                     "transition-all duration-200 ease-out",
-                    "focus:outline-none focus:ring-2 focus:ring-cyan-300/70 focus:ring-offset-0",
+                    "outline-none",
+                    "focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-0",
                     "bg-black/35 backdrop-blur-[2px]",
                     isWatched
                       ? "border border-cyan-300 text-white shadow-[0_0_14px_rgba(34,211,238,0.45)] hover:scale-105 hover:brightness-110"
