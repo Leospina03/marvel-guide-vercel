@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link, useLocation } from "wouter";
-import { Coffee, Film, Mail } from "lucide-react";
+import { Coffee, Film, Globe, Mail } from "lucide-react";
 
 import { useLanguage } from "@/context/language";
 import { cn } from "@/lib/utils";
@@ -19,7 +19,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         ? "Questo è un progetto non ufficiale. Tutti i diritti appartengono ai rispettivi proprietari."
         : "This is an unofficial project. All rights belong to their respective owners.",
     coffeeLabel:
-      language === "it" ? "Se ti va, offrimi un caffè" : "If you want, buy me a coffee",
+      language === "it" ? "Offrimi un caffè" : "Buy me a coffee",
     suggestions:
       language === "it" ? "Suggerimenti o segnalazioni:" : "Suggestions or feedback:",
     languageSelector: language === "it" ? "Selettore lingua" : "Language switcher",
@@ -55,37 +55,41 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </nav>
 
             <div
-              className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] p-1 backdrop-blur-sm"
+              className="flex items-center gap-2 text-sm font-medium"
               aria-label={text.languageSelector}
               role="group"
             >
+              <Globe
+                size={15}
+                className="text-white/35 shrink-0"
+                aria-hidden="true"
+              />
+
               <button
                 type="button"
                 onClick={() => setLanguage("it")}
                 aria-pressed={language === "it"}
                 className={cn(
-                  "rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-[0.18em] transition-all duration-200 outline-none",
+                  "font-sans text-[12px] tracking-[0.18em] uppercase transition-all duration-200 outline-none",
                   language === "it"
-                    ? "bg-white text-black shadow-sm"
-                    : "text-white/45 hover:text-white/75"
+                    ? "text-white"
+                    : "text-white/35 hover:text-white/70"
                 )}
               >
                 IT
               </button>
 
-              <span className="px-1 text-[11px] font-semibold tracking-[0.18em] text-white/20">
-                |
-              </span>
+              <span className="text-white/20 text-[11px] select-none">|</span>
 
               <button
                 type="button"
                 onClick={() => setLanguage("en")}
                 aria-pressed={language === "en"}
                 className={cn(
-                  "rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-[0.18em] transition-all duration-200 outline-none",
+                  "font-sans text-[12px] tracking-[0.18em] uppercase transition-all duration-200 outline-none",
                   language === "en"
-                    ? "bg-white text-black shadow-sm"
-                    : "text-white/45 hover:text-white/75"
+                    ? "text-white"
+                    : "text-white/35 hover:text-white/70"
                 )}
               >
                 EN
