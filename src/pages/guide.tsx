@@ -18,25 +18,6 @@ type TypeFilter = "tutti" | "film" | "serie";
 type PhaseFilter = "tutte" | 1 | 2 | 3 | 4 | 5 | 6;
 type WatchFilter = "tutti" | "non-visti" | "visti";
 
-type ConfettiPiece = {
-  id: number;
-  left: string;
-  delay: number;
-  duration: number;
-  rotate: number;
-  drift: number;
-  size: number;
-};
-
-const CONFETTI_COLORS = [
-  "#ffd700",
-  "#ff4d4d",
-  "#22d3ee",
-  "#ffffff",
-  "#f97316",
-  "#a855f7",
-];
-
 export default function Guide() {
   const { data: titles, isLoading, error } = useMCUList();
 
@@ -47,23 +28,9 @@ export default function Guide() {
   const [watchFilter, setWatchFilter] = useState<WatchFilter>("tutti");
   const [searchQuery, setSearchQuery] = useState("");
   const [watchedRefresh, setWatchedRefresh] = useState(0);
-  const [showCelebration, setShowCelebration] = useState(false);
+  const [showCompletionBadge, setShowCompletionBadge] = useState(false);
 
   const previousCompleteRef = React.useRef(false);
-
-  const confettiPieces = React.useMemo<ConfettiPiece[]>(
-    () =>
-      Array.from({ length: 90 }, (_, index) => ({
-        id: index,
-        left: `${Math.random() * 100}%`,
-        delay: Math.random() * 0.45,
-        duration: 1.9 + Math.random() * 1.1,
-        rotate: -260 + Math.random() * 520,
-        drift: -180 + Math.random() * 360,
-        size: 6 + Math.random() * 10,
-      })),
-    []
-  );
 
   React.useEffect(() => {
     const refreshWatched = () => setWatchedRefresh((v) => v + 1);
@@ -89,6 +56,7 @@ export default function Guide() {
     }
 
     if (typeFilter === "film") result = result.filter((t) => t.tipo === "film");
+
     if (typeFilter === "serie") {
       result = result.filter((t) => t.tipo === "serie" || t.tipo === "film TV");
     }
@@ -176,22 +144,124 @@ export default function Guide() {
     const nowComplete = watchedStats.isComplete;
 
     if (!wasComplete && nowComplete) {
-      setShowCelebration(true);
+      void fireCompletionConfetti();
+      setShowCompletionBadge(true);
 
       const timeout = window.setTimeout(() => {
-        setShowCelebration(false);
-      }, 2600);
+        setShowCompletionBadge(false);
+      }, 2400);
 
       previousCompleteRef.current = nowComplete;
-      return () => window.clearTimeout(timeout);
+
+      return () => {
+        window.clearTimeout(timeout);
+      };
     }
 
-    if (!nowComplete && showCelebration) {
-      setShowCelebration(false);
+    if (!nowComplete) {
+      setShowCompletionBadge(false);
     }
 
     previousCompleteRef.current = nowComplete;
-  }, [watchedStats.isComplete, showCelebration]);
+  }, [watchedStats.isComplete]);
+
+  async function fireCompletionConfetti() {
+    const { default: confetti } = await import("canvas-confetti");
+
+    const colors = ["#FFD700", "#C0C0C0", "#22D3EE"];
+
+    const base = {
+      colors,
+      ticks: 260,
+      gravity: 1.08,
+      drift: 0.18,
+      decay: 0.92,
+      startVelocity: 50,
+      scalar: 1,
+      zIndex: 2000,
+      disableForReducedMotion: true as const,
+    };
+
+    const leftCannon = (overrides: Record<string, unknown> = {}) =>
+      confetti({
+        ...base,
+        origin: { x: 0.03, y: 0.92 },
+        angle: 58,
+        spread: 34,
+        particleCount: 42,
+        shapes: ["square", "circle"],
+        ...overrides,
+      });
+
+    const rightCannon = (overrides: Record<string, unknown> = {}) =>
+      confetti({
+        ...base,
+        origin: { x: 0.97, y: 0.92 },
+        angle: 122,
+        spread: 34,
+        particleCount: 42,
+        shapes: ["square", "circle"],
+        ...overrides,
+      });
+
+    leftCannon({
+      particleCount: 46,
+      startVelocity: 58,
+      spread: 30,
+      scalar: 1.15,
+      drift: 0.22,
+    });
+
+    rightCannon({
+      particleCount: 46,
+      startVelocity: 58,
+      spread: 30,
+      scalar: 1.15,
+      drift: -0.22,
+    });
+
+    window.setTimeout(() => {
+      leftCannon({
+        particleCount: 28,
+        startVelocity: 46,
+        spread: 42,
+        scalar: 0.92,
+        gravity: 1.02,
+        drift: 0.16,
+      });
+
+      rightCannon({
+        particleCount: 28,
+        startVelocity: 46,
+        spread: 42,
+        scalar: 0.92,
+        gravity: 1.02,
+        drift: -0.16,
+      });
+    }, 180);
+
+    window.setTimeout(() => {
+      leftCannon({
+        particleCount: 18,
+        startVelocity: 36,
+        spread: 54,
+        scalar: 0.72,
+        gravity: 0.98,
+        decay: 0.94,
+        drift: 0.1,
+      });
+
+      rightCannon({
+        particleCount: 18,
+        startVelocity: 36,
+        spread: 54,
+        scalar: 0.72,
+        gravity: 0.98,
+        decay: 0.94,
+        drift: -0.1,
+      });
+    }, 380);
+  }
 
   if (error) {
     return (
@@ -211,71 +281,21 @@ export default function Guide() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col relative">
       <AnimatePresence>
-        {showCelebration && (
-          <>
-            <motion.div
-              key="celebration-overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="pointer-events-none fixed inset-0 z-[120]"
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-[#ffd700]/10 via-transparent to-transparent" />
-              <div className="absolute inset-x-0 top-0 h-56 bg-[#ffd700]/8 blur-3xl" />
-            </motion.div>
-
-            <motion.div
-              key="celebration-text"
-              initial={{ opacity: 0, y: -14, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.98 }}
-              transition={{ duration: 0.35 }}
-              className="pointer-events-none fixed left-1/2 top-6 z-[121] -translate-x-1/2"
-            >
-              <div className="rounded-full border border-[#ffd700]/40 bg-black/55 px-5 py-2 text-center shadow-[0_0_30px_rgba(255,215,0,0.22)] backdrop-blur-md">
-                <div className="font-display text-[11px] sm:text-xs uppercase tracking-[0.3em] text-[#ffd700]">
-                  MCU completato
-                </div>
+        {showCompletionBadge && (
+          <motion.div
+            key="completion-badge"
+            initial={{ opacity: 0, y: -14, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.35 }}
+            className="pointer-events-none fixed left-1/2 top-6 z-[130] -translate-x-1/2"
+          >
+            <div className="rounded-full border border-[#FFD700]/40 bg-black/55 px-5 py-2 text-center shadow-[0_0_30px_rgba(255,215,0,0.22)] backdrop-blur-md">
+              <div className="font-display text-[11px] sm:text-xs uppercase tracking-[0.3em] text-[#FFD700]">
+                MCU completato
               </div>
-            </motion.div>
-
-            <div className="pointer-events-none fixed inset-0 z-[121] overflow-hidden">
-              {confettiPieces.map((piece, index) => (
-                <motion.span
-                  key={piece.id}
-                  initial={{
-                    opacity: 0,
-                    x: 0,
-                    y: -40,
-                    rotate: 0,
-                    scale: 0.9,
-                  }}
-                  animate={{
-                    opacity: [0, 1, 1, 0],
-                    x: [0, piece.drift],
-                    y: [0, window.innerHeight * 0.92],
-                    rotate: [0, piece.rotate],
-                    scale: [0.9, 1, 0.95],
-                  }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: piece.duration,
-                    delay: piece.delay,
-                    ease: "easeOut",
-                  }}
-                  className="absolute top-0 rounded-[2px]"
-                  style={{
-                    left: piece.left,
-                    width: `${piece.size}px`,
-                    height: `${piece.size * 1.8}px`,
-                    backgroundColor:
-                      CONFETTI_COLORS[index % CONFETTI_COLORS.length],
-                    boxShadow: "0 0 10px rgba(255,255,255,0.15)",
-                  }}
-                />
-              ))}
             </div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -297,7 +317,7 @@ export default function Guide() {
               <div
                 className={`h-full rounded-full transition-all duration-300 ${
                   watchedStats.isComplete
-                    ? "bg-[#ffd700] shadow-[0_0_14px_rgba(255,215,0,0.55)]"
+                    ? "bg-[#FFD700] shadow-[0_0_14px_rgba(255,215,0,0.55)]"
                     : "bg-cyan-300 shadow-[0_0_14px_rgba(34,211,238,0.45)]"
                 }`}
                 style={{ width: `${watchedStats.percent}%` }}
@@ -307,7 +327,7 @@ export default function Guide() {
             <div
               className={`text-[11px] sm:text-xs uppercase tracking-[0.28em] font-display whitespace-nowrap ${
                 watchedStats.isComplete
-                  ? "text-[#ffd700] drop-shadow-[0_0_8px_rgba(255,215,0,0.45)]"
+                  ? "text-[#FFD700] drop-shadow-[0_0_8px_rgba(255,215,0,0.45)]"
                   : "text-slate-300/80"
               }`}
             >
