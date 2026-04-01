@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import confetti from "canvas-confetti";
 import { useMCUList } from "../hooks/use-mcu";
 import { MCUCard } from "../components/mcu-card";
 import { Button } from "../components/ui/button";
@@ -55,7 +56,9 @@ export default function Guide() {
       );
     }
 
-    if (typeFilter === "film") result = result.filter((t) => t.tipo === "film");
+    if (typeFilter === "film") {
+      result = result.filter((t) => t.tipo === "film");
+    }
 
     if (typeFilter === "serie") {
       result = result.filter((t) => t.tipo === "serie" || t.tipo === "film TV");
@@ -144,7 +147,7 @@ export default function Guide() {
     const nowComplete = watchedStats.isComplete;
 
     if (!wasComplete && nowComplete) {
-      void fireCompletionConfetti();
+      fireCompletionConfetti();
       setShowCompletionBadge(true);
 
       const timeout = window.setTimeout(() => {
@@ -165,74 +168,63 @@ export default function Guide() {
     previousCompleteRef.current = nowComplete;
   }, [watchedStats.isComplete]);
 
-  async function fireCompletionConfetti() {
-    const { default: confetti } = await import("canvas-confetti");
-
-    const colors = ["#FFD700", "#C0C0C0", "#22D3EE"];
-
-    const base = {
-      colors,
-      ticks: 260,
+  function shootFromLeft(overrides: Parameters<typeof confetti>[0] = {}) {
+    confetti({
+      particleCount: 44,
+      angle: 58,
+      spread: 34,
+      startVelocity: 60,
       gravity: 1.08,
-      drift: 0.18,
-      decay: 0.92,
-      startVelocity: 50,
-      scalar: 1,
-      zIndex: 2000,
-      disableForReducedMotion: true as const,
-    };
-
-    const leftCannon = (overrides: Record<string, unknown> = {}) =>
-      confetti({
-        ...base,
-        origin: { x: 0.03, y: 0.92 },
-        angle: 58,
-        spread: 34,
-        particleCount: 42,
-        shapes: ["square", "circle"],
-        ...overrides,
-      });
-
-    const rightCannon = (overrides: Record<string, unknown> = {}) =>
-      confetti({
-        ...base,
-        origin: { x: 0.97, y: 0.92 },
-        angle: 122,
-        spread: 34,
-        particleCount: 42,
-        shapes: ["square", "circle"],
-        ...overrides,
-      });
-
-    leftCannon({
-      particleCount: 46,
-      startVelocity: 58,
-      spread: 30,
-      scalar: 1.15,
       drift: 0.22,
+      decay: 0.92,
+      scalar: 1.12,
+      ticks: 260,
+      origin: { x: 0.03, y: 0.92 },
+      colors: ["#FFD700", "#C0C0C0", "#22D3EE"],
+      shapes: ["square", "circle"],
+      zIndex: 2000,
+      disableForReducedMotion: true,
+      ...overrides,
     });
+  }
 
-    rightCannon({
-      particleCount: 46,
-      startVelocity: 58,
-      spread: 30,
-      scalar: 1.15,
+  function shootFromRight(overrides: Parameters<typeof confetti>[0] = {}) {
+    confetti({
+      particleCount: 44,
+      angle: 122,
+      spread: 34,
+      startVelocity: 60,
+      gravity: 1.08,
       drift: -0.22,
+      decay: 0.92,
+      scalar: 1.12,
+      ticks: 260,
+      origin: { x: 0.97, y: 0.92 },
+      colors: ["#FFD700", "#C0C0C0", "#22D3EE"],
+      shapes: ["square", "circle"],
+      zIndex: 2000,
+      disableForReducedMotion: true,
+      ...overrides,
     });
+  }
+
+  function fireCompletionConfetti() {
+    shootFromLeft();
+    shootFromRight();
 
     window.setTimeout(() => {
-      leftCannon({
+      shootFromLeft({
         particleCount: 28,
-        startVelocity: 46,
+        startVelocity: 48,
         spread: 42,
         scalar: 0.92,
         gravity: 1.02,
         drift: 0.16,
       });
 
-      rightCannon({
+      shootFromRight({
         particleCount: 28,
-        startVelocity: 46,
+        startVelocity: 48,
         spread: 42,
         scalar: 0.92,
         gravity: 1.02,
@@ -241,21 +233,21 @@ export default function Guide() {
     }, 180);
 
     window.setTimeout(() => {
-      leftCannon({
+      shootFromLeft({
         particleCount: 18,
         startVelocity: 36,
         spread: 54,
-        scalar: 0.72,
+        scalar: 0.74,
         gravity: 0.98,
         decay: 0.94,
         drift: 0.1,
       });
 
-      rightCannon({
+      shootFromRight({
         particleCount: 18,
         startVelocity: 36,
         spread: 54,
-        scalar: 0.72,
+        scalar: 0.74,
         gravity: 0.98,
         decay: 0.94,
         drift: -0.1,
