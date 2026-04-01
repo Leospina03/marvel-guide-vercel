@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link, useLocation } from "wouter";
-import { Coffee, Film } from "lucide-react";
+import { Coffee, Film, Mail } from "lucide-react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -65,6 +65,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </span>
               <span className="tracking-[0.01em]">Se ti va, offrimi un caffè</span>
             </a>
+
+            <div className="flex flex-wrap items-center justify-center gap-2 text-center text-xs font-sans text-white/35">
+              <span className="inline-flex items-center gap-1.5 text-white/30">
+                <Mail size={13} />
+                <span>Suggerimenti o segnalazioni:</span>
+              </span>
+              <a
+                href="mailto:leonardospinazze5@gmail.com"
+                className="text-white/55 underline decoration-white/15 underline-offset-4 transition-colors hover:text-white hover:decoration-white/35"
+              >
+                leonardospinazze5@gmail.com
+              </a>
+            </div>
           </div>
         </div>
       </footer>
