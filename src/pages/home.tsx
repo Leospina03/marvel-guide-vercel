@@ -78,77 +78,53 @@ export default function Home() {
       </div>
 
       {/* Stats Section */}
-      <div className="relative z-10 mt-[-40px] w-full pb-24">
+      <div className="relative z-10 mt-[-24px] w-full pb-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-6 text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-white/35 sm:text-sm">
-              Panoramica del catalogo
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
-            <StatCard
-              value={stats.film.toString()}
-              label="Film Cinematografici"
-              delay={0.8}
-            />
-            <StatCard
-              value={stats.serie.toString()}
-              label="Serie e Speciali"
-              delay={0.9}
-            />
-            <StatCard
-              value={stats.fasi.toString()}
-              label="Fasi Complete"
-              delay={1.0}
-            />
-            <StatCard
-              value={stats.essenziali.toString()}
-              label="Titoli Essenziali"
-              delay={1.1}
-              highlight
-            />
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="border-t border-white/10 pt-8"
+          >
+            <div className="grid grid-cols-2 gap-x-8 gap-y-8 md:grid-cols-4">
+              <StatItem value={stats.film.toString()} label="Film Cinematografici" />
+              <StatItem value={stats.serie.toString()} label="Serie e Speciali" />
+              <StatItem value={stats.fasi.toString()} label="Fasi Complete" />
+              <StatItem
+                value={stats.essenziali.toString()}
+                label="Titoli Essenziali"
+                highlight
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
     </div>
   );
 }
 
-function StatCard({
+function StatItem({
   value,
   label,
-  delay,
   highlight = false,
 }: {
   value: string;
   label: string;
-  delay: number;
   highlight?: boolean;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay }}
-      className={[
-        "relative rounded-xl border px-4 py-5 text-center sm:px-5 sm:py-6",
-        "border-white/8 bg-white/[0.03] backdrop-blur-[2px]",
-        highlight ? "border-primary/20 bg-primary/[0.04]" : "",
-      ].join(" ")}
-    >
+    <div className="text-center">
       <div
-        className={[
-          "font-display text-4xl font-bold leading-none sm:text-5xl",
-          highlight ? "text-primary" : "text-white/90",
-        ].join(" ")}
+        className={`font-display text-4xl font-bold leading-none sm:text-5xl ${
+          highlight ? "text-primary" : "text-white/90"
+        }`}
       >
         {value}
       </div>
 
-      <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em] text-white/45 sm:text-xs">
+      <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.22em] text-white/45 sm:text-xs">
         {label}
       </div>
-    </motion.div>
+    </div>
   );
 }
