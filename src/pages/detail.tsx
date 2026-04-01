@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useMCUItem, useMCUList } from "../hooks/use-mcu";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
+import { getLocalizedText } from "../data/mcu";
 import {
   ArrowLeft,
   Star,
@@ -16,17 +17,6 @@ import {
   ListOrdered,
 } from "lucide-react";
 import { useLanguage } from "@/context/language";
-
-function getLocalizedSaga(saga: string, language: "it" | "en") {
-  if (language === "it") {
-    return saga;
-  }
-
-  if (saga === "Saga dell'Infinito") return "Infinity Saga";
-  if (saga === "Saga del Multiverso") return "Multiverse Saga";
-
-  return saga;
-}
 
 export default function Detail() {
   const { language } = useLanguage();
@@ -77,8 +67,15 @@ export default function Detail() {
     );
   }
 
+  const localizedTitle = getLocalizedText(item.titolo, language);
+  const localizedSaga = getLocalizedText(item.saga, language);
+  const localizedDescription = getLocalizedText(item.descrizione, language);
+  const localizedImportance = getLocalizedText(item.importanza, language);
+
   const prerequisites = allItems
-    ? allItems.filter((i) => item.vedereFirst.includes(i.titolo))
+    ? allItems.filter((i) =>
+        item.vedereFirst.includes(getLocalizedText(i.titolo, "it"))
+      )
     : [];
 
   return (
@@ -126,13 +123,13 @@ export default function Detail() {
             </div>
 
             <h2 className="font-display text-4xl font-bold text-white/90 relative z-10 tracking-tighter leading-none mb-4">
-              {item.titolo.split(":").map((part, i) => (
+              {localizedTitle.split(":").map((part, i) => (
                 <React.Fragment key={i}>
                   {part}
-                  {i === 0 && item.titolo.includes(":") && (
+                  {i === 0 && localizedTitle.includes(":") && (
                     <span className="text-primary">:</span>
                   )}
-                  {i === 0 && item.titolo.includes(":") && <br />}
+                  {i === 0 && localizedTitle.includes(":") && <br />}
                 </React.Fragment>
               ))}
             </h2>
@@ -149,7 +146,7 @@ export default function Detail() {
               </Badge>
               {item.saga && (
                 <Badge variant="secondary" className="text-sm px-3 py-1">
-                  {getLocalizedSaga(item.saga, language)}
+                  {localizedSaga}
                 </Badge>
               )}
               {item.essenziale && (
@@ -163,7 +160,7 @@ export default function Detail() {
             </div>
 
             <h1 className="font-display text-4xl sm:text-6xl font-bold text-white mb-2 leading-tight">
-              {item.titolo}
+              {localizedTitle}
             </h1>
 
             <p className="font-sans text-xl text-white/40 italic mb-8 border-l-2 border-primary/50 pl-4">
@@ -206,7 +203,7 @@ export default function Detail() {
 
             <div className="prose prose-invert max-w-none font-sans">
               <p className="text-white/80 text-lg leading-relaxed">
-                {item.descrizione}
+                {localizedDescription}
               </p>
             </div>
           </div>
@@ -225,7 +222,7 @@ export default function Detail() {
               {text.whyImportant}
             </h3>
             <p className="font-sans text-white/70 leading-relaxed">
-              {item.importanza}
+              {localizedImportance}
             </p>
           </motion.div>
 
@@ -259,7 +256,7 @@ export default function Detail() {
                         </div>
                         <div>
                           <h4 className="font-display text-lg text-white/90 group-hover:text-primary transition-colors">
-                            {prereq.titolo}
+                            {getLocalizedText(prereq.titolo, language)}
                           </h4>
                           <span className="font-sans text-xs text-white/40">
                             {prereq.anno}

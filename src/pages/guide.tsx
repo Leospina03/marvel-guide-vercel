@@ -5,6 +5,7 @@ import confetti from "canvas-confetti";
 import { useMCUList } from "../hooks/use-mcu";
 import { MCUCard } from "../components/mcu-card";
 import { Button } from "../components/ui/button";
+import { getLocalizedText } from "../data/mcu";
 import {
   Search,
   Loader2,
@@ -61,10 +62,6 @@ export default function Guide() {
     onlyEssentials: language === "it" ? "Solo Essenziali" : "Essentials only",
     loadingDatabase:
       language === "it" ? "CARICAMENTO DATABASE..." : "LOADING DATABASE...",
-    foundTitles:
-      language === "it"
-        ? `Trovati ${filteredCountPlaceholder()} titoli`
-        : `${filteredCountPlaceholder()} titles found`,
     sortedBy: language === "it" ? "Ordinati per:" : "Sorted by:",
     storyOrder: language === "it" ? "Ordine di Storia" : "Story Order",
     releaseDate: language === "it" ? "Data di Uscita" : "Release Date",
@@ -75,10 +72,6 @@ export default function Guide() {
         : "Try adjusting the filters or search to find what you're looking for.",
     resetFilters: language === "it" ? "Resetta Filtri" : "Reset Filters",
   };
-
-  function filteredCountPlaceholder() {
-    return "__COUNT__";
-  }
 
   React.useEffect(() => {
     const refreshWatched = () => setWatchedRefresh((v) => v + 1);
@@ -96,11 +89,12 @@ export default function Guide() {
 
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      result = result.filter(
-        (t) =>
-          t.titolo.toLowerCase().includes(q) ||
-          t.titoloOriginale.toLowerCase().includes(q)
-      );
+      result = result.filter((t) => {
+        const localizedTitle = getLocalizedText(t.titolo, language).toLowerCase();
+        return (
+          localizedTitle.includes(q) || t.titoloOriginale.toLowerCase().includes(q)
+        );
+      });
     }
 
     if (typeFilter === "film") {
@@ -154,6 +148,7 @@ export default function Guide() {
     watchFilter,
     searchQuery,
     watchedRefresh,
+    language,
   ]);
 
   const watchedStats = useMemo(() => {

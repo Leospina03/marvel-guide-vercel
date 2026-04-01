@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { MCUItem } from "../data/mcu";
+import { MCUItem, getLocalizedText } from "../data/mcu";
 import { Badge } from "./ui/badge";
 import { Star, Tv, Clapperboard, Calendar, Check, Plus } from "lucide-react";
 import { useLanguage } from "@/context/language";
@@ -51,6 +51,9 @@ function getLocalizedType(tipo: MCUItem["tipo"], language: "it" | "en") {
 
 export function MCUCard({ item, ordineType, index }: MCUCardProps) {
   const { language } = useLanguage();
+
+  const localizedTitle = getLocalizedText(item.titolo, language);
+  const localizedDescription = getLocalizedText(item.descrizione, language);
 
   const numberToDisplay =
     ordineType === "uscita" ? item.ordineUscita : item.ordineCronologico;
@@ -218,7 +221,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                 isWatched ? "text-white/10" : "text-white"
               }`}
             >
-              {item.titolo}
+              {localizedTitle}
             </h3>
 
             <p
@@ -261,7 +264,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
               className="font-sans text-sm line-clamp-3 leading-relaxed text-white/70"
               style={isWatched ? { opacity: 0 } : undefined}
             >
-              {item.descrizione}
+              {localizedDescription}
             </p>
           </div>
 
