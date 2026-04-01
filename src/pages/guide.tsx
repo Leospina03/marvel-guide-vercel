@@ -11,6 +11,25 @@ type TypeFilter = "tutti" | "film" | "serie";
 type PhaseFilter = "tutte" | 1 | 2 | 3 | 4 | 5 | 6;
 type WatchFilter = "tutti" | "non-visti" | "visti";
 
+type ConfettiPiece = {
+  id: number;
+  left: string;
+  delay: number;
+  duration: number;
+  rotate: number;
+  drift: number;
+  size: number;
+};
+
+const CONFETTI_COLORS = [
+  "#ffd700",
+  "#ff4d4d",
+  "#22d3ee",
+  "#ffffff",
+  "#f97316",
+  "#a855f7",
+];
+
 export default function Guide() {
   const { data: titles, isLoading, error } = useMCUList();
 
@@ -21,6 +40,23 @@ export default function Guide() {
   const [watchFilter, setWatchFilter] = useState<WatchFilter>("tutti");
   const [searchQuery, setSearchQuery] = useState("");
   const [watchedRefresh, setWatchedRefresh] = useState(0);
+  const [showCelebration, setShowCelebration] = useState(false);
+
+  const previousCompleteRef = React.useRef(false);
+
+  const confettiPieces = React.useMemo<ConfettiPiece[]>(
+    () =>
+      Array.from({ length: 42 }, (_, index) => ({
+        id: index,
+        left: `${Math.random() * 100}%`,
+        delay: Math.random() * 0.35,
+        duration: 1.6 + Math.random() * 0.9,
+        rotate: -220 + Math.random() * 440,
+        drift: -120 + Math.random() * 240,
+        size: 6 + Math.random() * 8,
+      })),
+    []
+  );
 
   React.useEffect(() => {
     const refreshWatched = () => setWatchedRefresh((v) => v + 1);
@@ -128,6 +164,28 @@ export default function Guide() {
     };
   }, [titles, watchedRefresh]);
 
+  React.useEffect(() => {
+    const wasComplete = previousCompleteRef.current;
+    const nowComplete = watchedStats.isComplete;
+
+    if (!wasComplete && nowComplete) {
+      setShowCelebration(true);
+
+      const timeout = window.setTimeout(() => {
+        setShowCelebration(false);
+      }, 2200);
+
+      previousCompleteRef.current = nowComplete;
+      return () => window.clearTimeout(timeout);
+    }
+
+    if (!nowComplete && showCelebration) {
+      setShowCelebration(false);
+    }
+
+    previousCompleteRef.current = nowComplete;
+  }, [watchedStats.isComplete, showCelebration]);
+
   if (error) {
     return (
       <div className="flex-1 flex items-center justify-center">
@@ -144,14 +202,80 @@ export default function Guide() {
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col relative">
+      <AnimatePresence>
+        {showCelebration && (
+          <>
+            <motion.div
+              key="celebration-glow"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="pointer-events-none absolute inset-x-0 top-0 z-50 h-40 bg-gradient-to-b from-[#ffd700]/12 via-[#ffd700]/5 to-transparent blur-2xl"
+            />
+
+            <motion.div
+              key="celebration-text"
+              initial={{ opacity: 0, y: -12, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.35 }}
+              className="pointer-events-none absolute left-1/2 top-4 z-50 -translate-x-1/2"
+            >
+              <div className="rounded-full border border-[#ffd700]/40 bg-black/55 px-5 py-2 text-center shadow-[0_0_24px_rgba(255,215,0,0.22)] backdrop-blur-md">
+                <div className="font-display text-[11px] sm:text-xs uppercase tracking-[0.28em] text-[#ffd700]">
+                  MCU completato
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-50 h-72 overflow-hidden">
+              {confettiPieces.map((piece, index) => (
+                <motion.span
+                  key={piece.id}
+                  initial={{
+                    opacity: 0,
+                    x: 0,
+                    y: -20,
+                    rotate: 0,
+                    scale: 0.9,
+                  }}
+                  animate={{
+                    opacity: [0, 1, 1, 0],
+                    x: [0, piece.drift],
+                    y: [0, 180 + Math.random() * 90],
+                    rotate: [0, piece.rotate],
+                    scale: [0.9, 1, 0.95],
+                  }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: piece.duration,
+                    delay: piece.delay,
+                    ease: "easeOut",
+                  }}
+                  className="absolute top-0 rounded-[2px]"
+                  style={{
+                    left: piece.left,
+                    width: `${piece.size}px`,
+                    height: `${piece.size * 1.8}px`,
+                    backgroundColor:
+                      CONFETTI_COLORS[index % CONFETTI_COLORS.length],
+                    boxShadow: "0 0 10px rgba(255,255,255,0.15)",
+                  }}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </AnimatePresence>
+
       <div className="text-center">
         <h1 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
           Marvel Timeline
         </h1>
 
         <p className="font-sans text-white/60 max-w-3xl mx-auto">
-          Sfoglia l'intero Marvel Cinematic Universe. Usa i filtri per trovare
+          Sfoglia l&apos;intero Marvel Cinematic Universe. Usa i filtri per trovare
           esattamente cosa guardare.
         </p>
       </div>
