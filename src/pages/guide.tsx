@@ -9,7 +9,7 @@ import { Search, Loader2, ArrowDownAZ, LayoutGrid, Calendar, Star } from "lucide
 type SortType = "uscita" | "cronologico";
 type TypeFilter = "tutti" | "film" | "serie";
 type PhaseFilter = "tutte" | 1 | 2 | 3 | 4 | 5 | 6;
-type WatchFilter = "tutti" | "da-vedere" | "completati";
+type WatchFilter = "tutti" | "non-visti" | "visti";
 
 export default function Guide() {
   const { data: titles, isLoading, error } = useMCUList();
@@ -58,7 +58,7 @@ export default function Guide() {
       result = result.filter((t) => t.essenziale);
     }
 
-    if (watchFilter === "da-vedere") {
+    if (watchFilter === "non-visti") {
       result = result.filter((t) => {
         try {
           return localStorage.getItem(`mcu-watched:${t.id}`) !== "1";
@@ -68,7 +68,7 @@ export default function Guide() {
       });
     }
 
-    if (watchFilter === "completati") {
+    if (watchFilter === "visti") {
       result = result.filter((t) => {
         try {
           return localStorage.getItem(`mcu-watched:${t.id}`) === "1";
@@ -211,24 +211,24 @@ export default function Guide() {
               Tutti
             </button>
             <button
-              onClick={() => setWatchFilter("da-vedere")}
+              onClick={() => setWatchFilter("non-visti")}
               className={`px-3 py-1.5 rounded-md text-xs font-display uppercase tracking-wider transition-colors ${
-                watchFilter === "da-vedere"
+                watchFilter === "non-visti"
                   ? "bg-primary text-white shadow-md"
                   : "text-white/60 hover:text-white"
               }`}
             >
-              Da Vedere
+              Non visti
             </button>
             <button
-              onClick={() => setWatchFilter("completati")}
+              onClick={() => setWatchFilter("visti")}
               className={`px-3 py-1.5 rounded-md text-xs font-display uppercase tracking-wider transition-colors ${
-                watchFilter === "completati"
+                watchFilter === "visti"
                   ? "bg-green-600/80 text-white shadow-md"
                   : "text-white/60 hover:text-white"
               }`}
             >
-              Completati
+              Visti
             </button>
           </div>
 
