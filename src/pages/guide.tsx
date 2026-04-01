@@ -13,6 +13,7 @@ import {
   Calendar,
   Star,
 } from "lucide-react";
+import { useLanguage } from "@/context/language";
 
 type SortType = "uscita" | "cronologico";
 type TypeFilter = "tutti" | "film" | "serie";
@@ -20,6 +21,7 @@ type PhaseFilter = "tutte" | 1 | 2 | 3 | 4 | 5 | 6;
 type WatchFilter = "tutti" | "non-visti" | "visti";
 
 export default function Guide() {
+  const { language } = useLanguage();
   const { data: titles, isLoading, error } = useMCUList();
 
   const [sortOrder, setSortOrder] = useState<SortType>("cronologico");
@@ -32,6 +34,51 @@ export default function Guide() {
   const [showCompletionBadge, setShowCompletionBadge] = useState(false);
 
   const previousCompleteRef = React.useRef(false);
+
+  const text = {
+    loadingError: language === "it" ? "Errore di caricamento" : "Loading error",
+    loadingErrorDescription:
+      language === "it"
+        ? "Impossibile caricare il database MCU."
+        : "Unable to load the MCU database.",
+    complete: language === "it" ? "MCU completato" : "MCU completed",
+    heading: "Marvel Timeline",
+    intro:
+      language === "it"
+        ? "Sfoglia l'intero Marvel Cinematic Universe. Usa i filtri per trovare esattamente cosa guardare."
+        : "Browse the entire Marvel Cinematic Universe. Use the filters to find exactly what to watch.",
+    watchedTitles: language === "it" ? "Titoli Visti" : "Watched Titles",
+    searchPlaceholder: language === "it" ? "Cerca titolo..." : "Search title...",
+    watchAll: language === "it" ? "Tutti" : "All",
+    watchNotSeen: language === "it" ? "Non visti" : "Unwatched",
+    watchSeen: language === "it" ? "Visti" : "Watched",
+    sortStory: language === "it" ? "Storia" : "Story",
+    sortRelease: language === "it" ? "Uscita" : "Release",
+    allTypes: language === "it" ? "Tutti i tipi" : "All types",
+    moviesOnly: language === "it" ? "Solo Film" : "Movies only",
+    seriesOnly: language === "it" ? "Solo Serie/TV" : "Series/TV only",
+    allPhases: language === "it" ? "Tutte le fasi" : "All phases",
+    onlyEssentials: language === "it" ? "Solo Essenziali" : "Essentials only",
+    loadingDatabase:
+      language === "it" ? "CARICAMENTO DATABASE..." : "LOADING DATABASE...",
+    foundTitles:
+      language === "it"
+        ? `Trovati ${filteredCountPlaceholder()} titoli`
+        : `${filteredCountPlaceholder()} titles found`,
+    sortedBy: language === "it" ? "Ordinati per:" : "Sorted by:",
+    storyOrder: language === "it" ? "Ordine di Storia" : "Story Order",
+    releaseDate: language === "it" ? "Data di Uscita" : "Release Date",
+    noResults: language === "it" ? "Nessun titolo trovato" : "No titles found",
+    noResultsDescription:
+      language === "it"
+        ? "Prova a modificare i filtri o la ricerca per trovare quello che cerchi."
+        : "Try adjusting the filters or search to find what you're looking for.",
+    resetFilters: language === "it" ? "Resetta Filtri" : "Reset Filters",
+  };
+
+  function filteredCountPlaceholder() {
+    return "__COUNT__";
+  }
 
   React.useEffect(() => {
     const refreshWatched = () => setWatchedRefresh((v) => v + 1);
@@ -255,16 +302,17 @@ export default function Guide() {
     }, 380);
   }
 
+  const foundTitlesLabel =
+    language === "it"
+      ? `Trovati ${filteredAndSorted.length} titoli`
+      : `${filteredAndSorted.length} titles found`;
+
   if (error) {
     return (
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center p-8 glass-panel rounded-xl">
-          <p className="text-destructive font-bold text-xl mb-2">
-            Errore di caricamento
-          </p>
-          <p className="text-white/60 font-sans">
-            Impossibile caricare il database MCU.
-          </p>
+          <p className="text-destructive font-bold text-xl mb-2">{text.loadingError}</p>
+          <p className="text-white/60 font-sans">{text.loadingErrorDescription}</p>
         </div>
       </div>
     );
@@ -284,7 +332,7 @@ export default function Guide() {
           >
             <div className="rounded-full border border-[#FFD700]/40 bg-black/55 px-5 py-2 text-center shadow-[0_0_30px_rgba(255,215,0,0.22)] backdrop-blur-md">
               <div className="font-display text-[11px] sm:text-xs uppercase tracking-[0.3em] text-[#FFD700]">
-                MCU completato
+                {text.complete}
               </div>
             </div>
           </motion.div>
@@ -293,13 +341,10 @@ export default function Guide() {
 
       <div className="text-center">
         <h1 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
-          Marvel Timeline
+          {text.heading}
         </h1>
 
-        <p className="font-sans text-white/60 max-w-3xl mx-auto">
-          Sfoglia l&apos;intero Marvel Cinematic Universe. Usa i filtri per trovare
-          esattamente cosa guardare.
-        </p>
+        <p className="font-sans text-white/60 max-w-3xl mx-auto">{text.intro}</p>
       </div>
 
       <div className="mt-6 mb-8 sm:mb-10 max-w-3xl mx-auto w-full sticky top-16 z-40">
@@ -323,7 +368,7 @@ export default function Guide() {
                   : "text-slate-300/80"
               }`}
             >
-              Titoli Visti: {watchedStats.watchedCount} / {watchedStats.totalCount}
+              {text.watchedTitles}: {watchedStats.watchedCount} / {watchedStats.totalCount}
             </div>
           </div>
         </div>
@@ -337,7 +382,7 @@ export default function Guide() {
           />
           <input
             type="text"
-            placeholder="Cerca titolo..."
+            placeholder={text.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-black/40 border border-white/10 rounded-lg pl-10 pr-4 py-2 text-white placeholder:text-white/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all font-sans text-sm"
@@ -354,7 +399,7 @@ export default function Guide() {
                   : "text-white/60 hover:text-white"
               }`}
             >
-              Tutti
+              {text.watchAll}
             </button>
             <button
               onClick={() => setWatchFilter("non-visti")}
@@ -364,7 +409,7 @@ export default function Guide() {
                   : "text-white/60 hover:text-white"
               }`}
             >
-              Non visti
+              {text.watchNotSeen}
             </button>
             <button
               onClick={() => setWatchFilter("visti")}
@@ -374,7 +419,7 @@ export default function Guide() {
                   : "text-white/60 hover:text-white"
               }`}
             >
-              Visti
+              {text.watchSeen}
             </button>
           </div>
 
@@ -387,7 +432,7 @@ export default function Guide() {
                   : "text-white/60 hover:text-white"
               }`}
             >
-              <ArrowDownAZ size={14} /> Storia
+              <ArrowDownAZ size={14} /> {text.sortStory}
             </button>
             <button
               onClick={() => setSortOrder("uscita")}
@@ -397,7 +442,7 @@ export default function Guide() {
                   : "text-white/60 hover:text-white"
               }`}
             >
-              <Calendar size={14} /> Uscita
+              <Calendar size={14} /> {text.sortRelease}
             </button>
           </div>
 
@@ -406,9 +451,9 @@ export default function Guide() {
             onChange={(e) => setTypeFilter(e.target.value as TypeFilter)}
             className="bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary/50 font-sans"
           >
-            <option value="tutti">Tutti i tipi</option>
-            <option value="film">Solo Film</option>
-            <option value="serie">Solo Serie/TV</option>
+            <option value="tutti">{text.allTypes}</option>
+            <option value="film">{text.moviesOnly}</option>
+            <option value="serie">{text.seriesOnly}</option>
           </select>
 
           <select
@@ -422,13 +467,13 @@ export default function Guide() {
             }
             className="bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-primary/50 font-sans"
           >
-            <option value="tutte">Tutte le fasi</option>
-            <option value="1">Fase 1</option>
-            <option value="2">Fase 2</option>
-            <option value="3">Fase 3</option>
-            <option value="4">Fase 4</option>
-            <option value="5">Fase 5</option>
-            <option value="6">Fase 6</option>
+            <option value="tutte">{text.allPhases}</option>
+            <option value="1">{language === "it" ? "Fase 1" : "Phase 1"}</option>
+            <option value="2">{language === "it" ? "Fase 2" : "Phase 2"}</option>
+            <option value="3">{language === "it" ? "Fase 3" : "Phase 3"}</option>
+            <option value="4">{language === "it" ? "Fase 4" : "Phase 4"}</option>
+            <option value="5">{language === "it" ? "Fase 5" : "Phase 5"}</option>
+            <option value="6">{language === "it" ? "Fase 6" : "Phase 6"}</option>
           </select>
 
           <button
@@ -440,7 +485,7 @@ export default function Guide() {
             }`}
           >
             <Star size={16} className={onlyEssentials ? "fill-amber-400" : ""} />
-            <span className="font-sans">Solo Essenziali</span>
+            <span className="font-sans">{text.onlyEssentials}</span>
           </button>
         </div>
       </div>
@@ -449,19 +494,17 @@ export default function Guide() {
         <div className="w-full flex-1 flex flex-col items-center justify-center py-20">
           <Loader2 className="animate-spin text-primary mb-4" size={48} />
           <p className="font-display text-white/50 tracking-widest animate-pulse">
-            CARICAMENTO DATABASE...
+            {text.loadingDatabase}
           </p>
         </div>
       ) : (
         <>
           <div className="mb-4 text-white/40 text-sm font-sans flex items-center justify-between">
-            <span>Trovati {filteredAndSorted.length} titoli</span>
+            <span>{foundTitlesLabel}</span>
             <span className="hidden sm:block">
-              Ordinati per:{" "}
+              {text.sortedBy}{" "}
               <strong className="text-white/80">
-                {sortOrder === "cronologico"
-                  ? "Ordine di Storia"
-                  : "Data di Uscita"}
+                {sortOrder === "cronologico" ? text.storyOrder : text.releaseDate}
               </strong>
             </span>
           </div>
@@ -469,13 +512,8 @@ export default function Guide() {
           {filteredAndSorted.length === 0 ? (
             <div className="flex-1 flex flex-col items-center justify-center py-20 text-center glass-panel rounded-2xl">
               <LayoutGrid className="text-white/20 mb-4" size={64} />
-              <h3 className="font-display text-2xl text-white mb-2">
-                Nessun titolo trovato
-              </h3>
-              <p className="font-sans text-white/50 max-w-md">
-                Prova a modificare i filtri o la ricerca per trovare quello che
-                cerchi.
-              </p>
+              <h3 className="font-display text-2xl text-white mb-2">{text.noResults}</h3>
+              <p className="font-sans text-white/50 max-w-md">{text.noResultsDescription}</p>
               <Button
                 variant="outline"
                 className="mt-6"
@@ -487,7 +525,7 @@ export default function Guide() {
                   setWatchFilter("tutti");
                 }}
               >
-                Resetta Filtri
+                {text.resetFilters}
               </Button>
             </div>
           ) : (

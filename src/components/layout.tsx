@@ -10,6 +10,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const isHome = location === "/";
   const { language, setLanguage } = useLanguage();
 
+  const text = {
+    navAllTitles: language === "it" ? "Tutti i Titoli" : "All Titles",
+    footerMadeForFans:
+      language === "it" ? "MCU Guide - Creato per i fan" : "MCU Guide - Made for fans",
+    footerDisclaimer:
+      language === "it"
+        ? "Questo è un progetto non ufficiale. Tutti i diritti appartengono ai rispettivi proprietari."
+        : "This is an unofficial project. All rights belong to their respective owners.",
+    coffeeLabel:
+      language === "it" ? "Se ti va, offrimi un caffè" : "If you want, buy me a coffee",
+    suggestions:
+      language === "it" ? "Suggerimenti o segnalazioni:" : "Suggestions or feedback:",
+    languageSelector: language === "it" ? "Selettore lingua" : "Language switcher",
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30 selection:text-white">
       <header
@@ -35,13 +50,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 href="/lista"
                 className="font-sans text-sm font-medium text-white/70 hover:text-white transition-colors hover:text-shadow-sm outline-none"
               >
-                Tutti i Titoli
+                {text.navAllTitles}
               </Link>
             </nav>
 
             <div
               className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] p-1 backdrop-blur-sm"
-              aria-label="Selettore lingua"
+              aria-label={text.languageSelector}
               role="group"
             >
               <button
@@ -87,30 +102,30 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex flex-col items-center justify-center gap-5 text-center">
             <div className="flex items-center gap-2 text-white/50">
               <Film size={18} />
-              <span className="font-sans text-sm">MCU Guide - Creato per i fan</span>
+              <span className="font-sans text-sm">{text.footerMadeForFans}</span>
             </div>
 
             <div className="text-white/30 text-xs font-sans max-w-2xl leading-relaxed">
-              Questo è un progetto non ufficiale. Tutti i diritti appartengono ai rispettivi proprietari.
+              {text.footerDisclaimer}
             </div>
 
             <a
               href="https://ko-fi.com/spina03"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Se ti va, offrimi un caffè"
+              aria-label={text.coffeeLabel}
               className="group inline-flex items-center gap-2.5 rounded-full border border-[#d6b36a]/20 bg-gradient-to-r from-white/[0.05] via-[#d6b36a]/[0.06] to-white/[0.05] px-5 py-2.5 text-sm font-sans text-white/80 shadow-[0_0_0_rgba(214,179,106,0)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d6b36a]/40 hover:bg-gradient-to-r hover:from-[#d6b36a]/[0.10] hover:via-[#d6b36a]/[0.16] hover:to-[#d6b36a]/[0.10] hover:text-white hover:shadow-[0_0_22px_rgba(214,179,106,0.12)]"
             >
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#d6b36a]/12 text-[#e7c987] transition-colors duration-300 group-hover:bg-[#d6b36a]/20 group-hover:text-[#f4d692]">
                 <Coffee size={15} />
               </span>
-              <span className="tracking-[0.01em]">Se ti va, offrimi un caffè</span>
+              <span className="tracking-[0.01em]">{text.coffeeLabel}</span>
             </a>
 
             <div className="flex flex-wrap items-center justify-center gap-2 text-center text-xs font-sans text-white/35">
               <span className="inline-flex items-center gap-1.5 text-white/30">
                 <Mail size={13} />
-                <span>Suggerimenti o segnalazioni:</span>
+                <span>{text.suggestions}</span>
               </span>
               <a
                 href="mailto:leonardospinazze5@gmail.com"

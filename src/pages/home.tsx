@@ -3,8 +3,11 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 import { mcuData } from "../data/mcu";
+import { useLanguage } from "@/context/language";
 
 export default function Home() {
+  const { language } = useLanguage();
+
   const stats = {
     film: mcuData.filter((i) => i.tipo === "film").length,
     serie: mcuData.filter((i) => i.tipo === "serie" || i.tipo === "film TV").length,
@@ -12,9 +15,21 @@ export default function Home() {
     essenziali: mcuData.filter((i) => i.essenziale).length,
   };
 
+  const text = {
+    eyebrow: language === "it" ? "LA GUIDA DEFINITIVA" : "THE ULTIMATE GUIDE",
+    description:
+      language === "it"
+        ? "Esplora ogni film e serie TV del Marvel Cinematic Universe. Scopri l'ordine perfetto in cui guardarli, le connessioni segrete e i titoli fondamentali per comprendere l'intera saga."
+        : "Explore every movie and TV series in the Marvel Cinematic Universe. Discover the perfect watch order, hidden connections, and the key titles needed to understand the entire saga.",
+    cta: language === "it" ? "Inizia l'esplorazione" : "Start exploring",
+    statMovies: language === "it" ? "Film Cinematografici" : "Movies",
+    statSeries: language === "it" ? "Serie e Speciali" : "Series & Specials",
+    statPhases: language === "it" ? "Fasi Complete" : "Completed Phases",
+    statEssentials: language === "it" ? "Titoli Essenziali" : "Essential Titles",
+  };
+
   return (
     <div className="relative flex w-full flex-col">
-      {/* Background Image Container */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <img
           src={`${import.meta.env.BASE_URL}images/hero-bg.png`}
@@ -34,7 +49,7 @@ export default function Home() {
             className="mb-6 flex items-center justify-center"
           >
             <div className="bg-primary px-4 py-1 font-display text-sm tracking-widest text-white/90 shadow-[0_0_20px_rgba(226,54,54,0.6)]">
-              LA GUIDA DEFINITIVA
+              {text.eyebrow}
             </div>
           </motion.div>
 
@@ -53,9 +68,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mb-12 max-w-2xl font-sans text-lg font-light text-white/70 sm:text-xl"
           >
-            Esplora ogni film e serie TV del Marvel Cinematic Universe.
-            Scopri l&apos;ordine perfetto in cui guardarli, le connessioni segrete
-            e i titoli fondamentali per comprendere l&apos;intera saga.
+            {text.description}
           </motion.p>
 
           <motion.div
@@ -70,14 +83,13 @@ export default function Home() {
                 size="lg"
                 className="w-full px-12 py-6 text-lg sm:w-auto"
               >
-                Inizia l&apos;esplorazione
+                {text.cta}
               </Button>
             </Link>
           </motion.div>
         </div>
       </div>
 
-      {/* Stats Section */}
       <div className="relative z-10 mt-[-24px] w-full pb-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -87,12 +99,12 @@ export default function Home() {
             className="border-t border-white/10 pt-8"
           >
             <div className="grid grid-cols-2 gap-x-8 gap-y-8 md:grid-cols-4">
-              <StatItem value={stats.film.toString()} label="Film Cinematografici" />
-              <StatItem value={stats.serie.toString()} label="Serie e Speciali" />
-              <StatItem value={stats.fasi.toString()} label="Fasi Complete" />
+              <StatItem value={stats.film.toString()} label={text.statMovies} />
+              <StatItem value={stats.serie.toString()} label={text.statSeries} />
+              <StatItem value={stats.fasi.toString()} label={text.statPhases} />
               <StatItem
                 value={stats.essenziali.toString()}
-                label="Titoli Essenziali"
+                label={text.statEssentials}
                 highlight
               />
             </div>

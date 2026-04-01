@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { MCUItem } from "../data/mcu";
 import { Badge } from "./ui/badge";
 import { Star, Tv, Clapperboard, Calendar, Check, Plus } from "lucide-react";
+import { useLanguage } from "@/context/language";
 
 interface MCUCardProps {
   item: MCUItem;
@@ -38,7 +39,19 @@ function MjolnirIcon() {
   );
 }
 
+function getLocalizedType(tipo: MCUItem["tipo"], language: "it" | "en") {
+  if (language === "it") {
+    return tipo;
+  }
+
+  if (tipo === "film") return "movie";
+  if (tipo === "serie") return "series";
+  return "TV special";
+}
+
 export function MCUCard({ item, ordineType, index }: MCUCardProps) {
+  const { language } = useLanguage();
+
   const numberToDisplay =
     ordineType === "uscita" ? item.ordineUscita : item.ordineCronologico;
 
@@ -49,6 +62,15 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
       return false;
     }
   });
+
+  const text = {
+    orderLabel: language === "it" ? `Ordine ${numberToDisplay}` : `Order ${numberToDisplay}`,
+    essentialTitle: language === "it" ? "Da non perdere" : "Must watch",
+    watched: language === "it" ? "Segnato come visto" : "Marked as watched",
+    markAsWatched: language === "it" ? "Segna come visto" : "Mark as watched",
+    phase: language === "it" ? "Fase" : "Phase",
+    discoverMore: language === "it" ? "Scopri di più" : "Discover more",
+  };
 
   function handleToggle(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -130,7 +152,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                       ? "bg-black/35 border-cyan-300/25 text-slate-200/90"
                       : "bg-black/35 border-white/15 text-white/85",
                   ].join(" ")}
-                  aria-label={`Ordine ${numberToDisplay}`}
+                  aria-label={text.orderLabel}
                 >
                   <span className="text-sm font-display">#{numberToDisplay}</span>
                 </div>
@@ -138,7 +160,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                 {item.essenziale && (
                   <div
                     className="bg-amber-500/20 text-amber-400 p-2 rounded-full border border-amber-500/40"
-                    title="Da non perdere"
+                    title={text.essentialTitle}
                   >
                     <Star size={16} fill="currentColor" />
                   </div>
@@ -149,8 +171,8 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                 <button
                   type="button"
                   onClick={handleToggle}
-                  title={isWatched ? "Segnato come visto" : "Segna come visto"}
-                  aria-label={isWatched ? "Segnato come visto" : "Segna come visto"}
+                  title={isWatched ? text.watched : text.markAsWatched}
+                  aria-label={isWatched ? text.watched : text.markAsWatched}
                   className={[
                     "relative z-20 flex items-center justify-center rounded-full w-10 h-10 shrink-0",
                     "transition-all duration-200 ease-out",
@@ -185,7 +207,9 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                   )}
                 </button>
 
-                <Badge variant="phase">Fase {item.fase}</Badge>
+                <Badge variant="phase">
+                  {text.phase} {item.fase}
+                </Badge>
               </div>
             </div>
 
@@ -217,7 +241,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
                 ) : (
                   <Tv size={12} />
                 )}
-                {item.tipo}
+                {getLocalizedType(item.tipo, language)}
               </Badge>
 
               <Badge
@@ -249,7 +273,7 @@ export function MCUCard({ item, ordineType, index }: MCUCardProps) {
             }`}
           >
             <span className="text-xs font-sans text-white/50 group-hover:text-white/80">
-              Scopri di più
+              {text.discoverMore}
             </span>
             <span
               className={`font-bold group-hover:translate-x-1 transition-transform ${

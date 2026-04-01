@@ -15,14 +15,48 @@ import {
   AlertTriangle,
   ListOrdered,
 } from "lucide-react";
+import { useLanguage } from "@/context/language";
+
+function getLocalizedSaga(saga: string, language: "it" | "en") {
+  if (language === "it") {
+    return saga;
+  }
+
+  if (saga === "Saga dell'Infinito") return "Infinity Saga";
+  if (saga === "Saga del Multiverso") return "Multiverse Saga";
+
+  return saga;
+}
 
 export default function Detail() {
+  const { language } = useLanguage();
   const [, params] = useRoute("/titolo/:id");
   const [, setLocation] = useLocation();
   const id = params?.id || "";
 
   const { data: item, isLoading, error } = useMCUItem(id);
   const { data: allItems } = useMCUList();
+
+  const text = {
+    notFound: language === "it" ? "Titolo non trovato" : "Title not found",
+    backToList: language === "it" ? "Torna alla lista" : "Back to list",
+    backToOverview: language === "it" ? "Torna all'elenco" : "Back to list",
+    phase: language === "it" ? "Fase" : "Phase",
+    essential: language === "it" ? "Essenziale" : "Essential",
+    year: language === "it" ? "Anno" : "Year",
+    duration: language === "it" ? "Durata" : "Duration",
+    platform: language === "it" ? "Piattaforma" : "Platform",
+    order: language === "it" ? "Ordine" : "Order",
+    chronological: language === "it" ? "Cron." : "Chron.",
+    release: language === "it" ? "Uscita" : "Release",
+    whyImportant:
+      language === "it" ? "Perché è importante?" : "Why is it important?",
+    watchBefore: language === "it" ? "Da vedere prima" : "Watch first",
+    noPrereqs:
+      language === "it"
+        ? "Nessun titolo strettamente necessario prima di questo. Puoi guardarlo subito!"
+        : "No strictly required titles before this one. You can watch it right away!",
+  };
 
   if (isLoading) {
     return (
@@ -36,9 +70,9 @@ export default function Detail() {
     return (
       <div className="min-h-[80vh] flex flex-col items-center justify-center text-center px-4">
         <h2 className="text-3xl font-display font-bold text-white mb-4">
-          Titolo non trovato
+          {text.notFound}
         </h2>
-        <Button onClick={() => setLocation("/lista")}>Torna alla lista</Button>
+        <Button onClick={() => setLocation("/lista")}>{text.backToList}</Button>
       </div>
     );
   }
@@ -54,7 +88,6 @@ export default function Detail() {
       exit={{ opacity: 0 }}
       className="w-full relative pb-20"
     >
-      {/* Abstract Texture Background specific to detail pages */}
       <div className="absolute top-0 left-0 w-full h-[60vh] z-0 overflow-hidden pointer-events-none">
         <img
           src={`${import.meta.env.BASE_URL}images/texture-abstract.png`}
@@ -73,12 +106,10 @@ export default function Detail() {
             size={16}
             className="group-hover:-translate-x-1 transition-transform"
           />
-          Torna all&apos;elenco
+          {text.backToOverview}
         </Link>
 
-        {/* Header Section */}
         <div className="flex flex-col md:flex-row gap-8 mb-12">
-          {/* Visual Poster Placeholder */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -111,15 +142,14 @@ export default function Detail() {
             </div>
           </motion.div>
 
-          {/* Details */}
           <div className="w-full md:w-2/3 flex flex-col justify-center">
             <div className="flex flex-wrap gap-3 mb-6">
               <Badge variant="phase" className="text-sm px-3 py-1">
-                Fase {item.fase}
+                {text.phase} {item.fase}
               </Badge>
               {item.saga && (
                 <Badge variant="secondary" className="text-sm px-3 py-1">
-                  {item.saga}
+                  {getLocalizedSaga(item.saga, language)}
                 </Badge>
               )}
               {item.essenziale && (
@@ -127,7 +157,7 @@ export default function Detail() {
                   variant="essential"
                   className="text-sm px-3 py-1 gap-1.5 flex items-center"
                 >
-                  <Star size={14} fill="currentColor" /> Essenziale
+                  <Star size={14} fill="currentColor" /> {text.essential}
                 </Badge>
               )}
             </div>
@@ -144,26 +174,30 @@ export default function Detail() {
               <div className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
                 <DetailMeta
                   icon={<Calendar size={13} />}
-                  label="Anno"
+                  label={text.year}
                   value={<span>{item.anno}</span>}
                 />
                 <DetailMeta
                   icon={<Clock size={13} />}
-                  label="Durata"
+                  label={text.duration}
                   value={<span>{item.durata}</span>}
                 />
                 <DetailMeta
                   icon={<MonitorPlay size={13} />}
-                  label="Piattaforma"
+                  label={text.platform}
                   value={<span>{item.piattaforma}</span>}
                 />
                 <DetailMeta
                   icon={<ListOrdered size={13} />}
-                  label="Ordine"
+                  label={text.order}
                   value={
                     <div className="space-y-1">
-                      <div>Cron. #{item.ordineCronologico}</div>
-                      <div>Uscita #{item.ordineUscita}</div>
+                      <div>
+                        {text.chronological} #{item.ordineCronologico}
+                      </div>
+                      <div>
+                        {text.release} #{item.ordineUscita}
+                      </div>
                     </div>
                   }
                 />
@@ -178,9 +212,7 @@ export default function Detail() {
           </div>
         </div>
 
-        {/* Lower Content Sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-          {/* Why it's important */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -190,14 +222,13 @@ export default function Detail() {
             <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
             <h3 className="font-display text-2xl font-bold text-white mb-4 flex items-center gap-2">
               <AlertTriangle className="text-primary" />
-              Perché è importante?
+              {text.whyImportant}
             </h3>
             <p className="font-sans text-white/70 leading-relaxed">
               {item.importanza}
             </p>
           </motion.div>
 
-          {/* Prereqs */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -206,15 +237,12 @@ export default function Detail() {
           >
             <h3 className="font-display text-2xl font-bold text-white mb-4 flex items-center gap-2">
               <ListOrdered className="text-white/50" />
-              Da vedere prima
+              {text.watchBefore}
             </h3>
 
             {prerequisites.length === 0 ? (
               <div className="bg-black/30 rounded-lg p-6 text-center border border-white/5">
-                <p className="font-sans text-white/50">
-                  Nessun titolo strettamente necessario prima di questo. Puoi
-                  guardarlo subito!
-                </p>
+                <p className="font-sans text-white/50">{text.noPrereqs}</p>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
