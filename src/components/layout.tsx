@@ -58,10 +58,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Se ti va, offrimi un caffè"
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-sans text-white/75 transition-all hover:border-white/20 hover:bg-white/[0.07] hover:text-white"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-[#d6b36a]/20 bg-gradient-to-r from-white/[0.05] via-[#d6b36a]/[0.06] to-white/[0.05] px-5 py-2.5 text-sm font-sans text-white/80 shadow-[0_0_0_rgba(214,179,106,0)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d6b36a]/40 hover:bg-gradient-to-r hover:from-[#d6b36a]/[0.10] hover:via-[#d6b36a]/[0.16] hover:to-[#d6b36a]/[0.10] hover:text-white hover:shadow-[0_0_22px_rgba(214,179,106,0.12)]"
             >
-              <Coffee size={16} />
-              <span>Se ti va, offrimi un caffè</span>
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#d6b36a]/12 text-[#e7c987] transition-colors duration-300 group-hover:bg-[#d6b36a]/20 group-hover:text-[#f4d692]">
+                <Coffee size={15} />
+              </span>
+              <span className="tracking-[0.01em]">Se ti va, offrimi un caffè</span>
             </a>
           </div>
         </div>
