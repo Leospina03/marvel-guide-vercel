@@ -4,7 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useMCUList } from "../hooks/use-mcu";
 import { MCUCard } from "../components/mcu-card";
 import { Button } from "../components/ui/button";
-import { Search, Loader2, ArrowDownAZ, LayoutGrid, Calendar, Star } from "lucide-react";
+import {
+  Search,
+  Loader2,
+  ArrowDownAZ,
+  LayoutGrid,
+  Calendar,
+  Star,
+} from "lucide-react";
 
 type SortType = "uscita" | "cronologico";
 type TypeFilter = "tutti" | "film" | "serie";
@@ -46,14 +53,14 @@ export default function Guide() {
 
   const confettiPieces = React.useMemo<ConfettiPiece[]>(
     () =>
-      Array.from({ length: 42 }, (_, index) => ({
+      Array.from({ length: 90 }, (_, index) => ({
         id: index,
         left: `${Math.random() * 100}%`,
-        delay: Math.random() * 0.35,
-        duration: 1.6 + Math.random() * 0.9,
-        rotate: -220 + Math.random() * 440,
-        drift: -120 + Math.random() * 240,
-        size: 6 + Math.random() * 8,
+        delay: Math.random() * 0.45,
+        duration: 1.9 + Math.random() * 1.1,
+        rotate: -260 + Math.random() * 520,
+        drift: -180 + Math.random() * 360,
+        size: 6 + Math.random() * 10,
       })),
     []
   );
@@ -173,7 +180,7 @@ export default function Guide() {
 
       const timeout = window.setTimeout(() => {
         setShowCelebration(false);
-      }, 2200);
+      }, 2600);
 
       previousCompleteRef.current = nowComplete;
       return () => window.clearTimeout(timeout);
@@ -207,43 +214,46 @@ export default function Guide() {
         {showCelebration && (
           <>
             <motion.div
-              key="celebration-glow"
+              key="celebration-overlay"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="pointer-events-none absolute inset-x-0 top-0 z-50 h-40 bg-gradient-to-b from-[#ffd700]/12 via-[#ffd700]/5 to-transparent blur-2xl"
-            />
+              className="pointer-events-none fixed inset-0 z-[120]"
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-[#ffd700]/10 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 top-0 h-56 bg-[#ffd700]/8 blur-3xl" />
+            </motion.div>
 
             <motion.div
               key="celebration-text"
-              initial={{ opacity: 0, y: -12, scale: 0.96 }}
+              initial={{ opacity: 0, y: -14, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.35 }}
-              className="pointer-events-none absolute left-1/2 top-4 z-50 -translate-x-1/2"
+              className="pointer-events-none fixed left-1/2 top-6 z-[121] -translate-x-1/2"
             >
-              <div className="rounded-full border border-[#ffd700]/40 bg-black/55 px-5 py-2 text-center shadow-[0_0_24px_rgba(255,215,0,0.22)] backdrop-blur-md">
-                <div className="font-display text-[11px] sm:text-xs uppercase tracking-[0.28em] text-[#ffd700]">
+              <div className="rounded-full border border-[#ffd700]/40 bg-black/55 px-5 py-2 text-center shadow-[0_0_30px_rgba(255,215,0,0.22)] backdrop-blur-md">
+                <div className="font-display text-[11px] sm:text-xs uppercase tracking-[0.3em] text-[#ffd700]">
                   MCU completato
                 </div>
               </div>
             </motion.div>
 
-            <div className="pointer-events-none absolute inset-x-0 top-0 z-50 h-72 overflow-hidden">
+            <div className="pointer-events-none fixed inset-0 z-[121] overflow-hidden">
               {confettiPieces.map((piece, index) => (
                 <motion.span
                   key={piece.id}
                   initial={{
                     opacity: 0,
                     x: 0,
-                    y: -20,
+                    y: -40,
                     rotate: 0,
                     scale: 0.9,
                   }}
                   animate={{
                     opacity: [0, 1, 1, 0],
                     x: [0, piece.drift],
-                    y: [0, 180 + Math.random() * 90],
+                    y: [0, window.innerHeight * 0.92],
                     rotate: [0, piece.rotate],
                     scale: [0.9, 1, 0.95],
                   }}
