@@ -2,13 +2,16 @@ import * as React from "react";
 import { Link, useLocation } from "wouter";
 import { Coffee, Film, Mail } from "lucide-react";
 
+import { useLanguage } from "@/context/language";
+import { cn } from "@/lib/utils";
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const isHome = location === "/";
+  const { language, setLanguage } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30 selection:text-white">
-      {/* Navbar */}
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           !isHome
@@ -16,7 +19,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2 group outline-none">
             <div className="bg-primary text-white p-1 rounded-sm px-2 font-display text-xl font-bold tracking-tighter shadow-[0_0_10px_rgba(226,54,54,0.5)] group-hover:scale-105 transition-transform">
               MARVEL
@@ -26,21 +29,59 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </span>
           </Link>
 
-          <nav className="flex items-center gap-6">
-            <Link
-              href="/lista"
-              className="font-sans text-sm font-medium text-white/70 hover:text-white transition-colors hover:text-shadow-sm outline-none"
+          <div className="flex items-center gap-4 sm:gap-6">
+            <nav className="flex items-center">
+              <Link
+                href="/lista"
+                className="font-sans text-sm font-medium text-white/70 hover:text-white transition-colors hover:text-shadow-sm outline-none"
+              >
+                Tutti i Titoli
+              </Link>
+            </nav>
+
+            <div
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] p-1 backdrop-blur-sm"
+              aria-label="Selettore lingua"
+              role="group"
             >
-              Tutti i Titoli
-            </Link>
-          </nav>
+              <button
+                type="button"
+                onClick={() => setLanguage("it")}
+                aria-pressed={language === "it"}
+                className={cn(
+                  "rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-[0.18em] transition-all duration-200 outline-none",
+                  language === "it"
+                    ? "bg-white text-black shadow-sm"
+                    : "text-white/45 hover:text-white/75"
+                )}
+              >
+                IT
+              </button>
+
+              <span className="px-1 text-[11px] font-semibold tracking-[0.18em] text-white/20">
+                |
+              </span>
+
+              <button
+                type="button"
+                onClick={() => setLanguage("en")}
+                aria-pressed={language === "en"}
+                className={cn(
+                  "rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-[0.18em] transition-all duration-200 outline-none",
+                  language === "en"
+                    ? "bg-white text-black shadow-sm"
+                    : "text-white/45 hover:text-white/75"
+                )}
+              >
+                EN
+              </button>
+            </div>
+          </div>
         </div>
       </header>
 
-      {/* Main content */}
       <main className="flex-1 w-full flex flex-col relative z-10">{children}</main>
 
-      {/* Footer */}
       <footer className="border-t border-white/5 bg-black/50 py-8 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center gap-5 text-center">
